@@ -20,6 +20,9 @@ module.exports = {
         grennColor: '#58A35B',
         footerColor: '#181818',
       },
+      backgroundImage:{
+        bgImage: "url('/images/background.png')",
+      },
     },
   },
   plugins: [],
