@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -5,6 +6,16 @@ import { FaTooth } from 'react-icons/fa';
 import { MdEmail, MdLockPerson } from 'react-icons/md';
 
 export default function LoginClinic(){
+  const [selectedPage, setSelectedPage] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    setSelectedPage(true);
+
+    return () => {
+      setSelectedPage(false);
+    };
+  }, []);
+
   return(
     <>
       <Head>
@@ -14,11 +25,19 @@ export default function LoginClinic(){
         <section className='w-[90%] max-w-[960px] flex flex-col items-center' >
           <div className='bg-primaryColor w-full rounded px-4 py-10 max-w-[430px]' >
             <div className='flex justify-between items-center' >
-              <Link href='/' className='text-sm font-bold text-white px-3 py-2 min-w-[124px] bg-darkPrimaryColor text-center' >
+              <Link 
+                href='/' 
+                className='text-sm font-bold text-white px-3 py-2 min-w-[124px] text-center' 
+                style={{ backgroundColor: selectedPage ? '#828282' : '#00466D' }}
+                >
                 Pessoa Física
               </Link>
               <FaTooth size={20} color='#FFF' />
-              <Link href='/loginclinic' className='text-sm font-bold text-white px-3 py-2 max-w-[124px] bg-gray-500' >
+              <Link 
+                href='/loginclinic' 
+                className='text-sm font-bold text-white px-3 py-2 max-w-[124px]' 
+                style={{ backgroundColor: selectedPage ? '#00466D' : '#828282' }}
+              >
                 Pessoa Jurídica
               </Link>
             </div>
