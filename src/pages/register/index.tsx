@@ -14,13 +14,13 @@ export default function Register(){
         <section className='w-[90%] max-w-[960px] flex flex-col items-center' >
           <div className='bg-primaryColor w-full rounded px-4 py-10 max-w-[430px]' >
             <div className='flex justify-between items-center' >
-              <button className='text-sm font-bold text-white px-3 py-2 min-w-[124px] bg-darkPrimaryColor' >
+              <Link href='/register' className='text-sm font-bold text-white px-3 py-2 min-w-[124px] bg-darkPrimaryColor text-center' >
                 Pessoa Física
-              </button>
+              </Link>
               <FaTooth size={20} color='#FFF' />
-              <button className='text-sm font-bold text-white px-3 py-2 max-w-[124px] bg-gray-500' >
+              <Link href='/registerclinic' className='text-sm font-bold text-white px-3 py-2 max-w-[124px] bg-gray-500' >
                 Pessoa Jurídica
-              </button>
+              </Link>
             </div>
 
             <div className='w-full mt-6 flex flex-col items-center' >

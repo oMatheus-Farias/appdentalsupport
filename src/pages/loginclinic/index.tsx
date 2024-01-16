@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { FaTooth } from 'react-icons/fa';
 import { MdEmail, MdLockPerson } from 'react-icons/md';
 
-export default function Home(){
-  return (
+export default function LoginClinic(){
+  return(
     <>
       <Head>
         <title>DentalSupport - Faça login</title>
@@ -33,7 +33,7 @@ export default function Home(){
                     className='w-full bg-transparent outline-none'
                     type='email'
                     name='email'
-                    placeholder='Email'
+                    placeholder='Email da clínica'
                   />
                 </div>
                 <div className='bg-white rounded p-2 flex items-center gap-2' >
@@ -52,7 +52,7 @@ export default function Home(){
               </form>
 
               <Link 
-                href='/register' 
+                href='/registerclinic' 
                 className='text-sm mt-5 underline'  
               >
                 Não possui uma conta? Cadastre-se
