@@ -46,7 +46,7 @@ export default function Home(){
                   />
                 </div>
 
-                <button className='h-10 bg-darkPrimaryColor text-lg text-white font-semibold' >
+                <button className='h-10 bg-darkPrimaryColor text-lg text-white font-semibold mt-4' >
                   Entrar
                 </button>
               </form>
