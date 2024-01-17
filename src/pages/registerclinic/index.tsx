@@ -1,11 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { ScreenSizeContext } from '@/context/screenSizeContext';
 import Head from 'next/head';
 import Link from 'next/link';
 
 import { FaTooth, FaBuilding, FaPhoneAlt, FaCalendarAlt } from 'react-icons/fa';
 import { MdEmail, MdLockPerson, MdLocationOn } from 'react-icons/md';
 
+import { InstructionMessageContent } from '@/components/instructionMessageContent';
+
 export default function RegisterClinic(){
+  const { dasktopSizeScreen } = useContext(ScreenSizeContext);
+
   const [selectedPage, setSelectedPage] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -22,12 +27,15 @@ export default function RegisterClinic(){
         <title>DentalSupport - Cadastre-se</title>
       </Head>
       <div className='bg-bgImage bg-cover bg-center w-full min-h-screen flex items-center justify-center' >
-        <section className='w-[90%] max-w-[960px] flex flex-col items-center' >
-          <div className='bg-primaryColor w-full rounded px-4 py-10 max-w-[430px]' >
+        <section className='w-[90%] max-w-[56.2em] flex flex-col items-center lg:flex-row lg:items-start lg:bg-primaryColor lg:rounded' >
+          {dasktopSizeScreen && (
+            <InstructionMessageContent/>
+          )}
+          <div className='bg-primaryColor w-full rounded px-4 py-10 max-w-[26.8em] lg:min-h-[40.62em] lg:min-w-[28.12em] lg:rounded-r' >
             <div className='flex justify-between items-center' >
               <Link 
                 href='/register' 
-                className='text-sm font-bold text-white px-3 py-2 min-w-[124px] text-center' 
+                className='text-sm font-bold text-white px-3 py-2 min-w-[9em] text-center' 
                 style={{ backgroundColor: selectedPage ? '#828282' : '#00466D' }}
                 >
                 Pessoa Física
@@ -35,7 +43,7 @@ export default function RegisterClinic(){
               <FaTooth size={20} color='#FFF' />
               <Link 
                 href='/registerclinic' 
-                className='text-sm font-bold text-white px-3 py-2 max-w-[124px]' 
+                className='text-sm font-bold text-white px-3 py-2 max-w-[9em]' 
                 style={{ backgroundColor: selectedPage ? '#00466D' : '#828282' }}
                 >
                 Pessoa Jurídica
