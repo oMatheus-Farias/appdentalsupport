@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { ScreenSizeContext } from '@/context/screenSizeContext';
+
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -7,19 +8,46 @@ import { FaTooth } from 'react-icons/fa';
 import { MdEmail, MdLockPerson } from 'react-icons/md';
 
 import { InstructionMessageContent } from '@/components/instructionMessageContent';
+import { Input } from '@/components/input';
+
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod'; 
+
+const schema = z.object({
+  email: z.string().email('Digite um email válido'),
+  password: z.string().min(6, 'A senha deve ter no minímo 6 caracteres'),
+});
+
+type FormData = z.infer<typeof schema>;
 
 export default function Home(){
   const { dasktopSizeScreen } = useContext(ScreenSizeContext);
 
-  const [selectedPage, setSelectedPage] = useState<boolean>(false);
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    mode: 'onChange',
+  });
 
   useEffect(() => {
     setSelectedPage(true);
-
+    
     return () => {
       setSelectedPage(false);
     };
   }, []);
+  
+  const [selectedPage, setSelectedPage] = useState<boolean>(false);
+  const emailIcon = (
+    <MdEmail size={22} color='#00466D' />
+  );
+  const passwordIcon = (
+    <MdLockPerson size={22} color='#00466D' />
+  );
+
+  async function onSubmit(data: FormData){
+    alert('Formulário enviado!!');
+  };
 
   return (
     <>
@@ -53,27 +81,31 @@ export default function Home(){
             <div className='w-full mt-6 flex flex-col items-center' >
               <h1 className='text-center text-white font-bold text-2xl lg:mt-20' >Faça login</h1>
 
-              <form className='w-full mt-7 flex flex-col gap-4'>
-                <div className='bg-white rounded p-2 flex items-center gap-2' >
-                  <MdEmail size={22} color='#00466D' />
-                  <input
-                    className='w-full bg-transparent outline-none'
-                    type='email'
-                    name='email'
-                    placeholder='Email'
-                  />
-                </div>
-                <div className='bg-white rounded p-2 flex items-center gap-2' >
-                  <MdLockPerson size={22} color='#00466D' />
-                  <input
-                    className='w-full bg-transparent outline-none'
-                    type='password'
-                    name='password'
-                    placeholder='******'
-                  />
-                </div>
-
-                <button className='h-10 bg-darkPrimaryColor text-lg text-white font-semibold mt-4' >
+              <form 
+                className='w-full mt-7 flex flex-col gap-4'
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <Input
+                  type='email'
+                  name='email'
+                  placeholder='Email'
+                  register={ register }
+                  error={ errors.email?.message }
+                  icon={ emailIcon }
+                />
+                <Input
+                  type='password'
+                  name='password'
+                  placeholder='Senha'
+                  register={ register }
+                  error={ errors.password?.message }
+                  icon={ passwordIcon }
+                />
+                
+                <button 
+                  className='h-10 bg-darkPrimaryColor text-lg text-white font-semibold mt-4' 
+                  type='submit'
+                >
                   Entrar
                 </button>
               </form>
