@@ -11,7 +11,7 @@ import { InstructionMessageContent } from '@/components/instructionMessageConten
 export default function Home(){
   const { dasktopSizeScreen } = useContext(ScreenSizeContext);
 
-  const [selectedPage, setSelectedPage] = useState<boolean | null>(null);
+  const [selectedPage, setSelectedPage] = useState<boolean>(false);
 
   useEffect(() => {
     setSelectedPage(true);
