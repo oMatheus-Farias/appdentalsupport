@@ -4,11 +4,11 @@ import { ScreenSizeContext } from '@/context/screenSizeContext';
 import Head from 'next/head';
 import Link from 'next/link';
 
-import { FaTooth } from 'react-icons/fa';
-import { MdEmail, MdLockPerson } from 'react-icons/md';
-
 import { InstructionMessageContent } from '@/components/instructionMessageContent';
 import { Input } from '@/components/input';
+
+import { FaTooth } from 'react-icons/fa';
+import { emailIcon, passwordIcon } from '@/icons';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -38,12 +38,6 @@ export default function Home(){
   }, []);
   
   const [selectedPage, setSelectedPage] = useState<boolean>(false);
-  const emailIcon = (
-    <MdEmail size={22} color='#00466D' />
-  );
-  const passwordIcon = (
-    <MdLockPerson size={22} color='#00466D' />
-  );
 
   async function onSubmit(data: FormData){
     alert('Formulário enviado!!');
@@ -96,7 +90,7 @@ export default function Home(){
                 <Input
                   type='password'
                   name='password'
-                  placeholder='Senha'
+                  placeholder='******'
                   register={ register }
                   error={ errors.password?.message }
                   icon={ passwordIcon }

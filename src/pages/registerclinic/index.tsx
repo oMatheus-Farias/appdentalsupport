@@ -3,23 +3,48 @@ import { ScreenSizeContext } from '@/context/screenSizeContext';
 import Head from 'next/head';
 import Link from 'next/link';
 
-import { FaTooth, FaBuilding, FaPhoneAlt, FaCalendarAlt } from 'react-icons/fa';
-import { MdEmail, MdLockPerson, MdLocationOn } from 'react-icons/md';
+import { FaTooth } from 'react-icons/fa';
+import { clinicIcon, addressIcon, contactIcon, operationIcon, emailIcon, passwordIcon } from '@/icons';
 
 import { InstructionMessageContent } from '@/components/instructionMessageContent';
+import { Input } from '@/components/input';
+
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+const schema = z.object({
+  nameClinic: z.string().nonempty('O nome é obrgatório'),
+  address: z.string().nonempty('O endereço é obrigatório'),
+  contact: z.string().min(11, 'O contato deve ter 11 caracteres').max(11, 'O contato deve ter 11 caracteres'),
+  operation: z.string().nonempty('O campo funcionamento é obrigatório'),
+  email: z.string().email('Digite um email válido'),
+  password: z.string().min(6, 'A senha eve ter no minímo 6 caracteres'),
+});
+
+type FormData = z.infer<typeof schema>;
 
 export default function RegisterClinic(){
   const { dasktopSizeScreen } = useContext(ScreenSizeContext);
 
-  const [selectedPage, setSelectedPage] = useState<boolean>(false);
-
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    mode: 'onChange',
+  });
+  
   useEffect(() => {
     setSelectedPage(true);
-
+    
     return () => {
       setSelectedPage(false);
     };
   }, []);
+  
+  const [selectedPage, setSelectedPage] = useState<boolean>(false);
+
+  async function onSubmit(data: FormData){
+    alert('TESTE');
+  };
 
   return(
     <>
@@ -53,63 +78,63 @@ export default function RegisterClinic(){
             <div className='w-full mt-6 flex flex-col items-center' >
               <h1 className='text-center text-white font-bold text-2xl' >Faça o cadastro</h1>
 
-              <form className='w-full mt-7 flex flex-col gap-4'>
-                <div className='bg-white rounded p-2 flex items-center gap-2' >
-                  <FaBuilding size={18} color='#00466D' />
-                  <input
-                    className='w-full bg-transparent outline-none'
-                    type='text'
-                    name='name'
-                    placeholder='Nome da clínica'
-                  />
-                </div>
-                <div className='bg-white rounded p-2 flex items-center gap-2' >
-                  <MdLocationOn size={22} color='#00466D' />
-                  <input
-                    className='w-full bg-transparent outline-none'
-                    type='text'
-                    name='address'
-                    placeholder='Endereço da clínica'
-                  />
-                </div>
-                <div className='bg-white rounded p-2 flex items-center gap-2' >
-                  <FaPhoneAlt size={18} color='#00466D' />
-                  <input
-                    className='w-full bg-transparent outline-none'
-                    type='text'
-                    name='contact'
-                    placeholder='Contato'
-                  />
-                </div>
-                <div className='bg-white rounded p-2 flex items-center gap-2' >
-                  <FaCalendarAlt size={18} color='#00466D' />
-                  <input
-                    className='w-full bg-transparent outline-none'
-                    type='text'
-                    name='operation'
-                    placeholder='Funcionamento'
-                  />
-                </div>
-                <div className='bg-white rounded p-2 flex items-center gap-2' >
-                  <MdEmail size={22} color='#00466D' />
-                  <input
-                    className='w-full bg-transparent outline-none'
-                    type='email'
-                    name='email'
-                    placeholder='Email'
-                  />
-                </div>
-                <div className='bg-white rounded p-2 flex items-center gap-2' >
-                  <MdLockPerson size={22} color='#00466D' />
-                  <input
-                    className='w-full bg-transparent outline-none'
-                    type='password'
-                    name='password'
-                    placeholder='******'
-                  />
-                </div>
+              <form 
+                className='w-full mt-7 flex flex-col gap-4'
+                onSubmit={ handleSubmit(onSubmit) }
+              >
+                <Input
+                  type='text'
+                  name='nameClinic'
+                  placeholder='Nome da clínica'
+                  register={ register }
+                  error={ errors.nameClinic?.message }
+                  icon={ clinicIcon }
+                />
+                <Input
+                  type='text'
+                  name='address'
+                  placeholder='Endereço da clínica'
+                  register={ register }
+                  error={ errors.address?.message }
+                  icon={ addressIcon }
+                />
+                <Input
+                  type='text'
+                  name='contact'
+                  placeholder='Contato'
+                  register={ register }
+                  error={ errors.contact?.message }
+                  icon={ contactIcon }
+                />
+                <Input
+                  type='text'
+                  name='operation'
+                  placeholder='Funcionamento'
+                  register={ register }
+                  error={ errors.operation?.message }
+                  icon={ operationIcon }
+                />
+                <Input
+                  type='email'
+                  name='email'
+                  placeholder='Email'
+                  register={ register }
+                  error={ errors.email?.message }
+                  icon={ emailIcon }
+                />
+                <Input
+                  type='password'
+                  name='password'
+                  placeholder='******'
+                  register={ register }
+                  error={ errors.password?.message }
+                  icon={ passwordIcon }
+                />
 
-                <button className='h-10 bg-darkPrimaryColor text-lg text-white font-semibold mt-4' >
+                <button 
+                  className='h-10 bg-darkPrimaryColor text-lg text-white font-semibold mt-4' 
+                  type='submit'
+                >
                   Cadastrar
                 </button>
               </form>

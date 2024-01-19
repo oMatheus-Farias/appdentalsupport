@@ -3,8 +3,8 @@ import { ScreenSizeContext } from '@/context/screenSizeContext';
 import Head from 'next/head';
 import Link from 'next/link';
 
-import { FaTooth, FaUser, FaPhoneAlt } from 'react-icons/fa';
-import { MdEmail, MdLockPerson } from 'react-icons/md';
+import { FaTooth } from 'react-icons/fa';
+import { nameIcon, contactIcon, emailIcon, passwordIcon } from '@/icons';
 
 import { InstructionMessageContent } from '@/components/instructionMessageContent';
 import { Input } from '@/components/input';
@@ -39,18 +39,6 @@ export default function Register(){
   }, []);
   
   const [selectedPage, setSelectedPage] = useState<boolean>(false);
-  const nameIcon = (
-    <FaUser size={18} color='#00466D' />
-  );
-  const contactIcon = (
-    <FaPhoneAlt size={18} color='#00466D' />
-  );
-  const emailIcon = (
-    <MdEmail size={22} color='#00466D' />
-  );
-  const passwordIcon = (
-    <MdLockPerson size={22} color='#00466D' />
-  );
 
   async function onSubmit(data: FormData){
     alert('Teste');
