@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { ScreenSizeContext } from '@/context/screenSizeContext';
+import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 import Head from 'next/head';
 import Link from 'next/link';
 
