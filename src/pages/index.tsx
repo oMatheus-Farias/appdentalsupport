@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
+import { AuthContext } from '@/contexts/authContext';
 
 import Head from 'next/head';
 import Link from 'next/link';
@@ -23,6 +24,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function Home(){
   const { dasktopSizeScreen } = useContext(ScreenSizeContext);
+  const { sigInPhysicalPerson } = useContext(AuthContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -40,7 +42,10 @@ export default function Home(){
   const [selectedPage, setSelectedPage] = useState<boolean>(false);
 
   async function onSubmit(data: FormData){
-    alert('Formulário enviado!!');
+    await sigInPhysicalPerson({
+      email: data.email,
+      password: data.password,
+    });
   };
 
   return (
