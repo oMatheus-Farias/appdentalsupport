@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
+import { AuthContext } from '@/contexts/authContext';
+
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -22,6 +24,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function LoginClinic(){
   const { dasktopSizeScreen } = useContext(ScreenSizeContext);
+  const { sigInLegalPerson } = useContext(AuthContext);
   
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -37,6 +40,13 @@ export default function LoginClinic(){
   }, []);
   
   const [selectedPage, setSelectedPage] = useState<boolean>(false);
+
+  async function onSubmit(data: FormData){
+    await sigInLegalPerson({
+      email: data.email,
+      password: data.password,
+    });
+  };
 
   return(
     <>
@@ -70,7 +80,10 @@ export default function LoginClinic(){
             <div className='w-full mt-6 flex flex-col items-center' >
               <h1 className='text-center text-white font-bold text-2xl lg:mt-20' >Faça login</h1>
 
-              <form className='w-full mt-7 flex flex-col gap-4'>
+              <form 
+                className='w-full mt-7 flex flex-col gap-4' 
+                onSubmit={ handleSubmit(onSubmit) }
+              >
                 <Input
                   type='email'
                   name='email'
@@ -88,7 +101,10 @@ export default function LoginClinic(){
                   icon={ passwordIcon }
                 />
 
-                <button className='h-10 bg-darkPrimaryColor text-lg text-white font-semibold mt-4' >
+                <button 
+                  className='h-10 bg-darkPrimaryColor text-lg text-white font-semibold mt-4' 
+                  type='submit'
+                >
                   Entrar
                 </button>
               </form>

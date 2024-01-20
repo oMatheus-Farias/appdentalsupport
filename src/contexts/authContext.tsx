@@ -11,6 +11,7 @@ interface AuthContextData {
   sigInPhysicalPerson: (credencials: SigInPhysicalPersonProps) => Promise<void>,
   sigUpPhysicalPerson: (credencials: SigUpPhysicalPersonProps) => Promise<void>,
   logOutPhysicalPerson: () => Promise<void>,
+  sigInLegalPerson: (credencials: SigInLegalPersonProps) => Promise<void>,
   signedPhysicalPersonUser: boolean,
 };
 
@@ -38,6 +39,22 @@ interface SigUpPhysicalPersonProps{
   password: string,
 };
 
+interface SigInLegalPersonProps{
+  email: string,
+  password: string,
+};
+
+interface LegalPersonProps{
+  id: string,
+  name: string,
+  address: string,
+  contact: string,
+  operation: string,
+  email: string,
+  status: string,
+  banner: string,
+};
+
 export const AuthContext = createContext({} as AuthContextData);
 
 export function signOut(){
@@ -55,6 +72,7 @@ export function signOut(){
 export default function AuthContextProvider({ children }: AuthContextProps){
   const [physicalPersonUser, setPhysicalPersonUser] = useState<PhysicalPersonProps | null>(null);
   const signedPhysicalPersonUser = !!physicalPersonUser;
+  const [legalPersonUser, setLegalPersonUser] = useState<LegalPersonProps | null>(null);
 
   async function sigInPhysicalPerson({ email, password }: SigInPhysicalPersonProps){
     try{
@@ -120,8 +138,51 @@ export default function AuthContextProvider({ children }: AuthContextProps){
     };
   };
 
+  async function sigInLegalPerson({ email, password }: SigInLegalPersonProps){
+    try{
+      const response = await api.post('/session/clinic', {
+        email,
+        password,
+      });
+
+      const { id, name, address, contact, operation, status, banner, token } = response.data;
+
+      setCookie(undefined, '@dentalsupportclinic.token', token, {
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/',
+      });
+
+      setLegalPersonUser({
+        id,
+        name,
+        address,
+        contact,
+        operation,
+        email,
+        status,
+        banner,
+      });
+
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+      Router.push('/dashboardclinic');
+      toast.success('Bem-vindo(a)');
+
+    }catch(err){
+      console.log('Erro ao tentar fazer login.');
+      toast.error('Algo deu errado!');
+    };
+  };
+
   return(
-    <AuthContext.Provider value={{ sigInPhysicalPerson, sigUpPhysicalPerson, logOutPhysicalPerson, signedPhysicalPersonUser }} >
+    <AuthContext.Provider 
+      value={{ 
+        sigInPhysicalPerson, 
+        sigUpPhysicalPerson, 
+        logOutPhysicalPerson, 
+        sigInLegalPerson, 
+        signedPhysicalPersonUser 
+      }} >
       { children }
     </AuthContext.Provider>
   );
