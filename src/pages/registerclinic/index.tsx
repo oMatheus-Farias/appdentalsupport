@@ -11,6 +11,8 @@ import { clinicIcon, addressIcon, contactIcon, operationIcon, emailIcon, passwor
 import { InstructionMessageContent } from '@/components/instructionMessageContent';
 import { Input } from '@/components/input';
 
+import { canSSRGuest } from '@/utils/canSSRGuest';
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -162,3 +164,9 @@ export default function RegisterClinic(){
     </>
   );
 };
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return{
+    props:{},
+  };
+});

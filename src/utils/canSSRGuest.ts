@@ -14,6 +14,15 @@ export function canSSRGuest<P extends { [key: string]: any } >(fn: GetServerSide
       };
     };
 
+    if(cookies['@dentalsupportclinic.token']){
+      return{
+        redirect:{
+          destination: '/dashboardclinic',
+          permanent: false,
+        },
+      };
+    };
+
     return await fn(ctx);
   }; 
 };
