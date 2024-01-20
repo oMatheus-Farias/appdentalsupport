@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 interface AuthContextData {
   sigInPhysicalPerson: (credencials: SigInPhysicalPersonProps) => Promise<void>,
   sigUpPhysicalPerson: (credencials: SigUpPhysicalPersonProps) => Promise<void>,
+  logOutPhysicalPerson: () => Promise<void>,
   signedPhysicalPersonUser: boolean,
 };
 
@@ -52,7 +53,7 @@ export function signOut(){
 };
 
 export default function AuthContextProvider({ children }: AuthContextProps){
-  const [physicalPersonUser, setPhysicalPersonUser] = useState<PhysicalPersonProps>();
+  const [physicalPersonUser, setPhysicalPersonUser] = useState<PhysicalPersonProps | null>(null);
   const signedPhysicalPersonUser = !!physicalPersonUser;
 
   async function sigInPhysicalPerson({ email, password }: SigInPhysicalPersonProps){
@@ -106,8 +107,21 @@ export default function AuthContextProvider({ children }: AuthContextProps){
     };
   };
 
+  async function logOutPhysicalPerson(){
+    try{
+      destroyCookie(null, '@dentalsupport.token', { path: '/' });
+      Router.push('/');
+      setPhysicalPersonUser(null);
+      toast.success('LogOut realizado com sucesso!');
+
+    }catch(err){
+      console.log('Erro tentar fazer logOut', err);
+      toast.error('Algo deu errado!');
+    };
+  };
+
   return(
-    <AuthContext.Provider value={{ sigInPhysicalPerson, sigUpPhysicalPerson, signedPhysicalPersonUser }} >
+    <AuthContext.Provider value={{ sigInPhysicalPerson, sigUpPhysicalPerson, logOutPhysicalPerson, signedPhysicalPersonUser }} >
       { children }
     </AuthContext.Provider>
   );
