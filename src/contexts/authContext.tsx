@@ -12,6 +12,7 @@ interface AuthContextData {
   sigUpPhysicalPerson: (credencials: SigUpPhysicalPersonProps) => Promise<void>,
   logOutPhysicalPerson: () => Promise<void>,
   sigInLegalPerson: (credencials: SigInLegalPersonProps) => Promise<void>,
+  sigUpLegalPerson: (credencials: SigUpLegalPersonProps) => Promise<void>,
   signedPhysicalPersonUser: boolean,
 };
 
@@ -53,6 +54,15 @@ interface LegalPersonProps{
   email: string,
   status: string,
   banner: string,
+};
+
+interface SigUpLegalPersonProps{
+  name: string,
+  address: string,
+  contact: string,
+  operation: string,
+  email: string,
+  password: string,
 };
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -174,6 +184,26 @@ export default function AuthContextProvider({ children }: AuthContextProps){
     };
   };
 
+  async function sigUpLegalPerson({ name, address, contact, operation, email, password }: SigUpLegalPersonProps){
+    try{
+      await api.post('/clinic', {
+        name,
+        address,
+        contact,
+        operation,
+        email,
+        password,
+      });
+
+      Router.push('/loginclinic');
+      toast.success('Cadastrado com sucesso, faça o login!');
+
+    }catch(err){
+      console.log('Erro ao tentar cadastrar.');
+      toast.error('Algo deu errado!');
+    };
+  };
+
   return(
     <AuthContext.Provider 
       value={{ 
@@ -181,6 +211,7 @@ export default function AuthContextProvider({ children }: AuthContextProps){
         sigUpPhysicalPerson, 
         logOutPhysicalPerson, 
         sigInLegalPerson, 
+        sigUpLegalPerson,
         signedPhysicalPersonUser 
       }} >
       { children }

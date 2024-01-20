@@ -7,7 +7,7 @@ export default function DashboardUser(){
         <title>DentalSupport - Minha Agenda</title>
       </Head>
       <div>
-        <h1>Página DashboardClinic</h1>
+        <h1>Página Dashboard Clinic</h1>
       </div>
     </>
   );
