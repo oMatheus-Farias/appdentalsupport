@@ -11,6 +11,8 @@ import { nameIcon, contactIcon, emailIcon, passwordIcon } from '@/icons';
 import { InstructionMessageContent } from '@/components/instructionMessageContent';
 import { Input } from '@/components/input';
 
+import { canSSRGuest } from '@/utils/canSSRGuest';
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -142,3 +144,9 @@ export default function Register(){
     </>
   );
 };
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return{
+    props:{},
+  };
+});

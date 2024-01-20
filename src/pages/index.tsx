@@ -11,6 +11,8 @@ import { Input } from '@/components/input';
 import { FaTooth } from 'react-icons/fa';
 import { emailIcon, passwordIcon } from '@/icons';
 
+import { canSSRGuest } from '@/utils/canSSRGuest';
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod'; 
@@ -122,3 +124,9 @@ export default function Home(){
     </>
   );
 };
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return{
+    props:{},
+  };
+});
