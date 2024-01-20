@@ -1,8 +1,11 @@
 import { createContext, ReactNode, useState } from 'react';
+
 import { destroyCookie, setCookie } from 'nookies';
 import Router from 'next/router';
 
 import { api } from '@/services/apiClient';
+
+import toast from 'react-hot-toast';
 
 interface AuthContextData {
   sigInPhysicalPerson: (credencials: SigInPhysicalPersonProps) => Promise<void>,
@@ -69,9 +72,11 @@ export default function AuthContextProvider({ children }: AuthContextProps){
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       Router.push('/dashboarduser');
+      toast.success('Bem-vindo(a)');
 
     }catch(err){
       console.log('Erro ao tentar fazer login');
+      toast.error('Algo deu errado!');
     };
   };
 
