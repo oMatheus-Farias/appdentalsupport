@@ -3,6 +3,7 @@ import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 
 import Head from 'next/head';
 import { HeaderMobile } from '@/components/headerMobile';
+import { NavigationMenu } from '@/components/navigationMenu';
 
 import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
 
@@ -14,10 +15,12 @@ export default function DashboardUser(){
       <Head>
         <title>DentalSupport - Minhas Consultas</title>
       </Head>
-      <div>
-        <HeaderMobile/>
+      <div className='lg:flex' >
+        {dasktopSizeScreen ? <NavigationMenu /> : <HeaderMobile />}
 
-        <h1>Página DashboardUser</h1>
+        <main className='p-5' >
+          <h1>Página DashboardUser</h1>
+        </main>
       </div>
     </>
   );
