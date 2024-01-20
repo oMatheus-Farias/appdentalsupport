@@ -1,5 +1,7 @@
 import Head from 'next/head';
 
+import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
+
 export default function DashboardUser(){
   return(
     <>
@@ -12,3 +14,11 @@ export default function DashboardUser(){
     </>
   );
 };
+
+export const getServerSideProps = canSSRAuthPhysicalPerson(async (ctx) => {
+  return{
+    props:{
+      
+    },
+  };
+});
