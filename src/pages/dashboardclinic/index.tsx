@@ -1,6 +1,8 @@
 import Head from 'next/head';
 
-export default function DashboardUser(){
+import { canSSRAuthLegalPerson } from '@/utils/canSSRAuthLegalPerson';
+
+export default function DashboardClinic(){
   return(
     <>
       <Head>
@@ -12,3 +14,9 @@ export default function DashboardUser(){
     </>
   );
 };
+
+export const getServerSideProps = canSSRAuthLegalPerson(async (ctx) => {
+  return{
+    props:{},
+  };
+});
