@@ -68,7 +68,7 @@ export default function RegisterClinic(){
           {dasktopSizeScreen && (
             <InstructionMessageContent/>
           )}
-          <div className='bg-primaryColor w-full rounded px-4 py-10 max-w-[26.8em] lg:min-h-[40.62em] lg:min-w-[28.12em] lg:rounded-r' >
+          <div className='bg-primaryColor w-full rounded px-4 py-4 max-w-[26.8em] lg:min-h-[40.62em] lg:min-w-[28.12em] lg:rounded-r' >
             <div className='flex justify-between items-center' >
               <Link 
                 href='/register' 
@@ -87,11 +87,11 @@ export default function RegisterClinic(){
               </Link>
             </div>
 
-            <div className='w-full mt-6 flex flex-col items-center' >
+            <div className='w-full mt-3 flex flex-col items-center' >
               <h1 className='text-center text-white font-bold text-2xl' >Faça o cadastro</h1>
 
               <form 
-                className='w-full mt-7 flex flex-col gap-4'
+                className='w-full mt-5 flex flex-col gap-3'
                 onSubmit={ handleSubmit(onSubmit) }
               >
                 <Input

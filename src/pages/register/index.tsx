@@ -64,7 +64,7 @@ export default function Register(){
           {dasktopSizeScreen && (
             <InstructionMessageContent/>
           )}
-          <div className='bg-primaryColor w-full rounded px-4 py-10 max-w-[26.8em] lg:min-h-[40.62em] lg:min-w-[28.12em] lg:rounded-r' >
+          <div className='bg-primaryColor w-full rounded px-4 py-10 max-w-[26.8em] lg:min-h-[40.62em] lg:min-w-[28.12em] lg:rounded-r lg:max-h-[40.5em]' >
             <div className='flex justify-between items-center' >
               <Link 
                 href='/register' 

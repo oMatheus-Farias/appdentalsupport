@@ -3,7 +3,7 @@ import logoBackground from '../../../public/images/logo-background.png';
 
 export function InstructionMessageContent(){
   return(
-    <div className='bg-white min-h-[40.62em] max-w-[28.12] rounded' >
+    <div className='bg-white min-h-[40.62em] max-w-[28.12] h-full rounded' >
       <Image
         className='mt-7'
         src={ logoBackground }
