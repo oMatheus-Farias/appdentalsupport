@@ -1,5 +1,6 @@
 import { MdEmail, MdLockPerson, MdLocationOn } from 'react-icons/md';
 import { FaUser, FaPhoneAlt, FaBuilding, FaCalendarAlt } from 'react-icons/fa';
+import { FiMenu } from 'react-icons/fi';
 
 export const emailIcon = (
   <MdEmail size={22} color='#00466D' />
@@ -27,4 +28,8 @@ export const addressIcon = (
 
 export const operationIcon = (
   <FaCalendarAlt size={18} color='#00466D' />
+);
+
+export const menuIcon = (
+  <FiMenu size={30} color='#FFF' />
 );
