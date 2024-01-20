@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
+import { AuthContext } from '@/contexts/authContext';
+
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -24,6 +26,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function Register(){
   const { dasktopSizeScreen } = useContext(ScreenSizeContext);
+  const { sigUpPhysicalPerson } = useContext(AuthContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -41,7 +44,12 @@ export default function Register(){
   const [selectedPage, setSelectedPage] = useState<boolean>(false);
 
   async function onSubmit(data: FormData){
-    alert('Teste');
+    await sigUpPhysicalPerson({
+      name: data.name,
+      contact: data.contact,
+      email: data.email,
+      password: data.password,
+    });
   };
 
   return(

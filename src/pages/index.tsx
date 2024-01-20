@@ -41,7 +41,7 @@ export default function Home(){
   
   const [selectedPage, setSelectedPage] = useState<boolean>(false);
 
-  async function onSubmit(data: FormData){
+  async function onSubmit(data: FormData){   
     await sigInPhysicalPerson({
       email: data.email,
       password: data.password,

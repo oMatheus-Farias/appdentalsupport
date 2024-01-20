@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 
 interface AuthContextData {
   sigInPhysicalPerson: (credencials: SigInPhysicalPersonProps) => Promise<void>,
+  sigUpPhysicalPerson: (credencials: SigUpPhysicalPersonProps) => Promise<void>,
   signedPhysicalPersonUser: boolean,
 };
 
@@ -27,6 +28,13 @@ interface PhysicalPersonProps{
   email: string,
   contact: string,
   avatar: string,
+};
+
+interface SigUpPhysicalPersonProps{
+  name: string,
+  contact: string,
+  email: string,
+  password: string,
 };
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -75,13 +83,31 @@ export default function AuthContextProvider({ children }: AuthContextProps){
       toast.success('Bem-vindo(a)');
 
     }catch(err){
-      console.log('Erro ao tentar fazer login');
+      console.log('Erro ao tentar fazer login.');
+      toast.error('Algo deu errado!');
+    };
+  };
+
+  async function sigUpPhysicalPerson({ name, contact, email, password }: SigUpPhysicalPersonProps){
+    try{
+      await api.post('/user', {
+        name,
+        contact,
+        email,
+        password,
+      });
+
+      Router.push('/');
+      toast.success('Cadastrado com sucesso, faça o login!');
+
+    }catch(err){
+      console.log('Erro ao tentar cadastrar.');
       toast.error('Algo deu errado!');
     };
   };
 
   return(
-    <AuthContext.Provider value={{ sigInPhysicalPerson, signedPhysicalPersonUser }} >
+    <AuthContext.Provider value={{ sigInPhysicalPerson, sigUpPhysicalPerson, signedPhysicalPersonUser }} >
       { children }
     </AuthContext.Provider>
   );
