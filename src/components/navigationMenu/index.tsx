@@ -4,7 +4,13 @@ import Link from 'next/link';
 
 import { calendarIconMenu, newQueryIconMenu, settingsIconMenu } from '@/icons';
 
-export function NavigationMenu(){
+interface NavigationMenuProps{
+  linkNameOne: string,
+  linkNameTwo: string,
+  linkNameTre: string,
+};
+
+export function NavigationMenu({ linkNameOne, linkNameTwo, linkNameTre }: NavigationMenuProps){
   return(
     <div className='max-w-44 min-h-screen h-full flex flex-col p-4 bg-primaryColor' >
       <Image
@@ -20,7 +26,7 @@ export function NavigationMenu(){
               className='flex items-center gap-2'
             >
               { calendarIconMenu }
-              Consultas
+              { linkNameOne }
             </Link>
           </li>
           <li>
@@ -29,7 +35,7 @@ export function NavigationMenu(){
               className='flex items-center gap-2'
             >
               { newQueryIconMenu }
-              Nova Consulta
+              { linkNameTwo }
             </Link>
           </li>
           <li>
@@ -38,7 +44,7 @@ export function NavigationMenu(){
               className='flex items-center gap-2'
             >
               { settingsIconMenu }
-              Perfil
+              { linkNameTre }
             </Link>
           </li>
         </ul>

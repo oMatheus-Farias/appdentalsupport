@@ -6,10 +6,13 @@ import { closeMenuIcon, calendarIconMenu, newQueryIconMenu, settingsIconMenu } f
 
 interface NavigationMobileProps{
   handleCloseNav: () => void,
-  openNav: boolean
+  openNav: boolean,
+  linkNameOne: string,
+  linkNameTwo: string,
+  linkNameTre: string,
 };
 
-export function NavigationMobile({ handleCloseNav, openNav }: NavigationMobileProps){
+export function NavigationMobile({ handleCloseNav, openNav, linkNameOne, linkNameTwo, linkNameTre }: NavigationMobileProps){
   return(
     <div 
       className="w-full h-screen absolute top-0 left-0 transition-all bg-transparentBlackColor" 
@@ -38,7 +41,7 @@ export function NavigationMobile({ handleCloseNav, openNav }: NavigationMobilePr
               className='flex items-center gap-2'
             >
               { calendarIconMenu }
-              Consultas
+              { linkNameOne }
             </Link>
           </li>
           <li>
@@ -47,7 +50,7 @@ export function NavigationMobile({ handleCloseNav, openNav }: NavigationMobilePr
               className='flex items-center gap-2'
             >
               { newQueryIconMenu }
-              Nova Consulta
+              { linkNameTwo }
             </Link>
           </li>
           <li>
@@ -56,7 +59,7 @@ export function NavigationMobile({ handleCloseNav, openNav }: NavigationMobilePr
               className='flex items-center gap-2'
             >
               { settingsIconMenu }
-              Perfil
+              { linkNameTre }
             </Link>
           </li>
         </ul>

@@ -19,14 +19,26 @@ export default function DashboardUser(){
         <title>DentalSupport - Minhas Consultas</title>
       </Head>
       <div className='lg:flex' >
-        {dasktopSizeScreen ? <NavigationMenu /> : <HeaderMobile handleOpenNav={ () => setOpenNav(true) } />}
+        {dasktopSizeScreen ? 
+          <NavigationMenu linkNameOne='Consultas' linkNameTwo='Nova Consulta' linkNameTre='Perfil' /> 
+          : 
+          <HeaderMobile handleOpenNav={ () => setOpenNav(true) } />
+        }
 
         <main className='p-5' >
           <h1>Página DashboardUser</h1>
         </main>
       </div>
 
-      {!dasktopSizeScreen && <NavigationMobile handleCloseNav={ () => setOpenNav(false) } openNav={ openNav } />}
+      {!dasktopSizeScreen && (
+        <NavigationMobile 
+          handleCloseNav={ () => setOpenNav(false) } 
+          openNav={ openNav } 
+          linkNameOne='Consultas'
+          linkNameTwo='Nova Consulta'
+          linkNameTre='Perfil'
+        />
+      )}
     </>
   );
 };

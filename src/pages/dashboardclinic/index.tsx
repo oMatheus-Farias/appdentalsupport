@@ -19,14 +19,26 @@ export default function DashboardClinic(){
         <title>DentalSupport - Minha Agenda</title>
       </Head>
       <div className='lg:flex' >
-        {dasktopSizeScreen ? <NavigationMenu /> : <HeaderMobile handleOpenNav={ () => setOpenNav(true) } />}
+        {dasktopSizeScreen ? 
+          <NavigationMenu linkNameOne='Agenda' linkNameTwo='Serviços' linkNameTre='Perfil' />  
+          : 
+          <HeaderMobile handleOpenNav={ () => setOpenNav(true) } />
+        }
 
         <main className='p-5' >
           <h1>Página DashboardClinic</h1>
         </main>
       </div>
 
-      {!dasktopSizeScreen && <NavigationMobile handleCloseNav={ () => setOpenNav(false) } openNav={ openNav } />}
+      {!dasktopSizeScreen && (
+        <NavigationMobile 
+          handleCloseNav={ () => setOpenNav(false) } 
+          openNav={ openNav } 
+          linkNameOne='Agenda'
+          linkNameTwo='Serviços'
+          linkNameTre='Perfil'
+        />
+      )}
     </>
   );
 };
