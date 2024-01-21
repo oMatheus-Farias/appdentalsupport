@@ -3,10 +3,16 @@ import logo from '../../../public/images/main-logo.png';
 
 import Image from 'next/image';
 
-export function HeaderMobile(){
+interface HeaderMobileProps{
+  handleOpenNav: () => void,
+};
+
+export function HeaderMobile({ handleOpenNav }: HeaderMobileProps){
   return(
     <header className='h-16 px-4 py-5 flex items-center gap-7 bg-primaryColor' >
-      <button>
+      <button
+        onClick={ handleOpenNav }
+      >
         { menuIcon }
       </button>
 

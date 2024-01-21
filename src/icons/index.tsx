@@ -2,7 +2,7 @@ import { MdEmail, MdLockPerson, MdLocationOn } from 'react-icons/md';
 import { FaUser, FaPhoneAlt, FaBuilding, FaCalendarAlt } from 'react-icons/fa';
 import { FaSquarePlus } from "react-icons/fa6";
 import { FiMenu } from 'react-icons/fi';
-import { IoCalendarNumber, IoSettingsSharp } from "react-icons/io5";
+import { IoCalendarNumber, IoSettingsSharp, IoClose } from "react-icons/io5";
 
 export const emailIcon = (
   <MdEmail size={22} color='#00466D' />
@@ -34,6 +34,10 @@ export const operationIcon = (
 
 export const menuIcon = (
   <FiMenu size={30} color='#FFF' />
+);
+
+export const closeMenuIcon = (
+  <IoClose   size={36} color='#FFF' />
 );
 
 export const calendarIconMenu = (

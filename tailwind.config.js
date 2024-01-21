@@ -19,6 +19,7 @@ module.exports = {
         boxColor: '#E8E8E8',
         grennColor: '#58A35B',
         footerColor: '#181818',
+        transparentBlackColor: 'rgba(0, 0, 0, 0.4)',
       },
       backgroundImage:{
         bgImage: "url('/images/background.png')",
