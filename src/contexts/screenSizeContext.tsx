@@ -2,6 +2,8 @@ import { createContext, ReactNode, useState, useEffect } from 'react';
 
 interface ScreenSizeContextData{
   dasktopSizeScreen: boolean | null;
+  isChecked: boolean,
+  setIsChecked: (state: boolean) => void,
 };
 
 type ScrennSizeChildren = {
@@ -12,6 +14,7 @@ export const ScreenSizeContext = createContext({} as ScreenSizeContextData);
 
 export default function ScreenSizeProvider({ children }: ScrennSizeChildren){
   const [dasktopSizeScreen, setDasktopSizeScreen] = useState<boolean | null>(null);
+  const [isChecked, setIsChecked] = useState(true);
 
   useEffect(() => {
     window.addEventListener('resize', checkScreenSize);
@@ -24,7 +27,7 @@ export default function ScreenSizeProvider({ children }: ScrennSizeChildren){
   }, []);
 
   return(
-    <ScreenSizeContext.Provider value={{ dasktopSizeScreen }} >
+    <ScreenSizeContext.Provider value={{ dasktopSizeScreen, isChecked, setIsChecked }} >
       { children }
     </ScreenSizeContext.Provider>
   );

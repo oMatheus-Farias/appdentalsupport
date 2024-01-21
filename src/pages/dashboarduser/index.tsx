@@ -3,6 +3,7 @@ import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 import { AuthContext } from '@/contexts/authContext';
 
 import avatarDefault from '../../../public/images/avatar-default-small.png';
+import { calendarIcon } from '@/icons';
 
 import Head from 'next/head';
 import Image from 'next/image';
@@ -10,6 +11,7 @@ import Image from 'next/image';
 import { HeaderMobile } from '@/components/headerMobile';
 import { NavigationMenu } from '@/components/navigationMenu';
 import { NavigationMobile } from '@/components/navigationMobile';
+import { PageTitle } from '@/components/pageTitle';
 
 import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
 
@@ -28,7 +30,7 @@ export default function DashboardUser(){
       <Head>
         <title>DentalSupport - Minhas Consultas</title>
       </Head>
-      <div className='lg:flex' >
+      <div className='lg:flex bg-secondaryColor' >
         {dasktopSizeScreen ? 
           <NavigationMenu linkNameOne='Consultas' linkNameTwo='Nova Consulta' linkNameTre='Perfil' /> 
           : 
@@ -36,7 +38,7 @@ export default function DashboardUser(){
         }
 
         <main className='p-5 w-full' >
-          <section className='flex items-center gap-2 justify-end' >
+          <section className='flex items-center gap-2 mb-6 justify-end' >
             <Image
               src={ avatarDefault }
               alt='Imagem avatar'
@@ -52,6 +54,8 @@ export default function DashboardUser(){
               </button>
             </div>
           </section>
+
+          <PageTitle icon={ calendarIcon } title='Minhas consultas' />
         </main>
       </div>
 
