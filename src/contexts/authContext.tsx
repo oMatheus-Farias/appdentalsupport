@@ -14,6 +14,7 @@ interface AuthContextData {
   sigInLegalPerson: (credencials: SigInLegalPersonProps) => Promise<void>,
   sigUpLegalPerson: (credencials: SigUpLegalPersonProps) => Promise<void>,
   signedPhysicalPersonUser: boolean,
+  physicalPersonUser: PhysicalPersonProps | null,
 };
 
 interface AuthContextProps{
@@ -212,7 +213,8 @@ export default function AuthContextProvider({ children }: AuthContextProps){
         logOutPhysicalPerson, 
         sigInLegalPerson, 
         sigUpLegalPerson,
-        signedPhysicalPersonUser 
+        signedPhysicalPersonUser,
+        physicalPersonUser,
       }} >
       { children }
     </AuthContext.Provider>
