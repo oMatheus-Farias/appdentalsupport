@@ -20,6 +20,7 @@ export function NavigationMobile({ handleCloseNav, openNav }: NavigationMobilePr
           <Image
             src={ logo }
             alt='Logo DentalSupport'
+            priority
           />
 
           <button
