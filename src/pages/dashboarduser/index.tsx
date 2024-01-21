@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 import { AuthContext } from '@/contexts/authContext';
 
@@ -11,7 +11,6 @@ import { HeaderMobile } from '@/components/headerMobile';
 import { NavigationMenu } from '@/components/navigationMenu';
 import { NavigationMobile } from '@/components/navigationMobile';
 
-import { api } from '@/services/apiClient';
 import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
 
 export default function DashboardUser(){

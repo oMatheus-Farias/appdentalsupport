@@ -1,6 +1,6 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 
-import { destroyCookie, setCookie } from 'nookies';
+import { destroyCookie, setCookie, parseCookies } from 'nookies';
 import Router from 'next/router';
 
 import { api } from '@/services/apiClient';
@@ -80,10 +80,74 @@ export function signOut(){
   };
 };
 
+export function signOutLegalPerson(){
+  console.log('Error logOut');
+
+  try{
+    destroyCookie(null, '@dentalsupportclinic.token', { path: '/' });
+    Router.push('/loginclinic');
+
+  }catch(err){
+    console.log('Erro ao sair.', err);
+  };
+};
+
 export default function AuthContextProvider({ children }: AuthContextProps){
   const [physicalPersonUser, setPhysicalPersonUser] = useState<PhysicalPersonProps | null>(null);
   const signedPhysicalPersonUser = !!physicalPersonUser;
   const [legalPersonUser, setLegalPersonUser] = useState<LegalPersonProps | null>(null);
+
+  useEffect(() => {
+    verifyAuthenticatedPhysicalPerson();
+    verifyAuthenticatedLegalPerson();
+  }, []);
+
+  function verifyAuthenticatedPhysicalPerson(){
+    const { '@dentalsupport.token': token } = parseCookies();
+  
+    if(token){
+      api.get('/me')
+      .then(response => {
+        const { id, name, email, contact, avatar } = response.data;
+  
+        setPhysicalPersonUser({
+          id,
+          name,
+          email,
+          contact,
+          avatar,
+        });
+      })
+      .catch(() => {
+        signOut();
+      });
+    };
+  };
+
+  function verifyAuthenticatedLegalPerson(){
+    const { '@dentalsupportclinic.token': token } = parseCookies();
+  
+    if(token){
+      api.get('/me/clinic')
+      .then(response => {
+        const { id, name, address, contact, operation, email, status, banner } = response.data;
+  
+        setLegalPersonUser({
+          id,
+          name,
+          address,
+          contact,
+          operation,
+          email,
+          status,
+          banner,
+        });
+      })
+      .catch(() => {
+        signOutLegalPerson();
+      });
+    };
+  };
 
   async function sigInPhysicalPerson({ email, password }: SigInPhysicalPersonProps){
     try{
