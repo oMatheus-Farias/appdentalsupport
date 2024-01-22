@@ -40,11 +40,12 @@ export default function DashboardUser(){
   useEffect(() => {
     async function getServicesUser(){
       const response = await api.get('/services');
-
+  
       setListDetailServices(response.data);
     };
 
     getServicesUser();
+
   }, [listDetailServices]);
 
   async function logout(){
@@ -84,19 +85,25 @@ export default function DashboardUser(){
           <PageTitle icon={ calendarIcon } title='Minhas consultas' />
 
           <main className='mt-10 flex flex-col gap-4' >
-            {listDetailServices.map(item => {
-              return(
-                <div key={item.id} >
-                  <UserServiceDetailsContainer
-                    nameClinic={ item.nameClinic }
-                    address={ item.address }
-                    contactClinic={ item.contactClinic }
-                    dateTime={ item.dateTime }
-                    nameProduct={ item.nameProduct }
-                  />
-                </div>
-              )
-            })}
+            { listDetailServices.length === 0 ? (
+              <div>
+                <p>Teste</p>
+              </div>
+            ) : (
+              listDetailServices.map(item => {
+                return(
+                  <div key={item?.id} >
+                    <UserServiceDetailsContainer
+                      nameClinic={ item?.nameClinic }
+                      address={ item?.address }
+                      contactClinic={ item?.contactClinic }
+                      dateTime={ item?.dateTime }
+                      nameProduct={ item?.nameProduct }
+                    />
+                  </div>
+                )
+              })
+            )}
           </main>
         </div>
       </div>

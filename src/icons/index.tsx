@@ -68,3 +68,9 @@ export function calendarIcon(color: string){
     <IoCalendarNumber size={30} color={ color } />
   );
 };
+
+export function newQueryIcon(color: string){
+  return(
+    <FaSquarePlus size={30} color={ color } />
+  );
+};
