@@ -30,7 +30,7 @@ export default function Settings(){
           <PageTitle icon={ settingsIcon } title='Perfil' />
 
           <main className='mt-10 flex flex-col gap-4' >
-            <p>Page Profile</p>
+            <p>Page Profilegit</p>
           </main>
         </div>
       </div>
