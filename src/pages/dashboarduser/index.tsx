@@ -30,7 +30,7 @@ export default function DashboardUser(){
       <Head>
         <title>DentalSupport - Minhas Consultas</title>
       </Head>
-      <div className='lg:flex bg-secondaryColor dark:bg-darkSecondaryColor' >
+      <div className='lg:flex bg-secondaryColor dark:bg-darkSecondaryColor min-h-screen' >
         {dasktopSizeScreen ? 
           <NavigationMenu linkNameOne='Consultas' linkNameTwo='Nova Consulta' linkNameTre='Perfil' /> 
           : 
