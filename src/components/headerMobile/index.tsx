@@ -9,7 +9,7 @@ interface HeaderMobileProps{
 
 export function HeaderMobile({ handleOpenNav }: HeaderMobileProps){
   return(
-    <header className='h-16 px-4 py-5 flex items-center gap-7 bg-primaryColor' >
+    <header className='h-16 px-4 py-5 flex items-center gap-7 bg-primaryColor dark:bg-darkPrimaryColor' >
       <button
         onClick={ handleOpenNav }
       >

@@ -15,10 +15,10 @@ interface NavigationMobileProps{
 export function NavigationMobile({ handleCloseNav, openNav, linkNameOne, linkNameTwo, linkNameTre }: NavigationMobileProps){
   return(
     <div 
-      className="w-full h-screen absolute top-0 left-0 transition-all bg-transparentBlackColor" 
+      className="w-full h-screen absolute top-0 left-0 transition-all z-10 bg-transparentBlackColor" 
       style={{ transform: openNav ? 'translateX(0)' : 'translateX(-100%)' }}
     >
-      <section className="w-[80%] h-full p-4 bg-primaryColor" >
+      <section className="w-[80%] h-full p-4 bg-primaryColor dark:bg-darkSecondaryColor" >
         <div className='flex items-center justify-between w-full' >
           <Image
             src={ logo }

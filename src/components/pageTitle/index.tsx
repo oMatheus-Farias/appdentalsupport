@@ -4,7 +4,7 @@ import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 import { sunIcon, moonIcon } from '@/icons';
 
 interface PageTitleProps{
-  icon: ReactNode,
+  icon: (color: string) => ReactNode,
   title: string,
 };
 
@@ -20,9 +20,9 @@ export function PageTitle({ icon, title }: PageTitleProps){
   return(
     <section className='flex items-center justify-between' >
       <div className='flex items-center gap-3' >
-        { icon }
+        { icon(isChecked ? '#001B2A' : '#FFF') }
 
-        <h1 className='font-bold text-darkSecondaryColor sm:text-2xl' >
+        <h1 className='font-bold text-darkSecondaryColor sm:text-2xl dark:text-white' >
           { title }
         </h1>
       </div>

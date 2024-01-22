@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 import { AuthContext } from '@/contexts/authContext';
 
@@ -16,7 +16,7 @@ import { PageTitle } from '@/components/pageTitle';
 import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
 
 export default function DashboardUser(){
-  const { dasktopSizeScreen } = useContext(ScreenSizeContext);
+  const { dasktopSizeScreen, isChecked } = useContext(ScreenSizeContext);
   const { physicalPersonUser, logOutPhysicalPerson } = useContext(AuthContext);
 
   const [openNav, setOpenNav] = useState(false);
@@ -26,11 +26,11 @@ export default function DashboardUser(){
   };
 
   return(
-    <>
+    <div className={ `${isChecked ? '' : 'dark'}` } >
       <Head>
         <title>DentalSupport - Minhas Consultas</title>
       </Head>
-      <div className='lg:flex bg-secondaryColor' >
+      <div className='lg:flex bg-secondaryColor dark:bg-darkSecondaryColor' >
         {dasktopSizeScreen ? 
           <NavigationMenu linkNameOne='Consultas' linkNameTwo='Nova Consulta' linkNameTre='Perfil' /> 
           : 
@@ -44,7 +44,7 @@ export default function DashboardUser(){
               alt='Imagem avatar'
             />
 
-            <div className='text-xs' >
+            <div className={ `text-xs ${isChecked ? 'text-black' : 'text-white'}` } >
               <p>{ physicalPersonUser?.name }</p>
               <button 
                 onClick={ logout }
@@ -68,7 +68,7 @@ export default function DashboardUser(){
           linkNameTre='Perfil'
         />
       )}
-    </>
+    </div>
   );
 };
 
