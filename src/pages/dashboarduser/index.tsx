@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 import { AuthContext } from '@/contexts/authContext';
 
@@ -15,12 +15,37 @@ import { PageTitle } from '@/components/pageTitle';
 import { UserServiceDetailsContainer } from '@/components/userServiceDetailsContainer';
 
 import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
+import { api } from '@/services/apiClient';
+
+interface ListDetailServiceItem{
+  id: string,
+  nameClinic: string,
+  address: string,
+  contactClinic: string,
+  dateTime: string,
+  customer: string,
+  contactCustomer: string,
+  nameProduct: string,
+  product_id: string,
+  clinic_id: string,
+};
 
 export default function DashboardUser(){
   const { dasktopSizeScreen, isChecked } = useContext(ScreenSizeContext);
   const { physicalPersonUser, logOutPhysicalPerson } = useContext(AuthContext);
 
   const [openNav, setOpenNav] = useState(false);
+  const [listDetailServices, setListDetailServices] = useState<ListDetailServiceItem[]>([]);
+
+  useEffect(() => {
+    async function getServicesUser(){
+      const response = await api.get('/services');
+
+      setListDetailServices(response.data);
+    };
+
+    getServicesUser();
+  }, [listDetailServices]);
 
   async function logout(){
     await logOutPhysicalPerson();
@@ -59,7 +84,19 @@ export default function DashboardUser(){
           <PageTitle icon={ calendarIcon } title='Minhas consultas' />
 
           <main className='mt-10 flex flex-col gap-4' >
-            <UserServiceDetailsContainer/>
+            {listDetailServices.map(item => {
+              return(
+                <div key={item.id} >
+                  <UserServiceDetailsContainer
+                    nameClinic={ item.nameClinic }
+                    address={ item.address }
+                    contactClinic={ item.contactClinic }
+                    dateTime={ item.dateTime }
+                    nameProduct={ item.nameProduct }
+                  />
+                </div>
+              )
+            })}
           </main>
         </div>
       </div>

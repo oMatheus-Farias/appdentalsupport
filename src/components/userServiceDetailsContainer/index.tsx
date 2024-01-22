@@ -1,12 +1,21 @@
 import Image from 'next/image';
 import bannerDefault from '../../../public/images/banner-default.png';
 
-export function UserServiceDetailsContainer(){
+interface UserServiceDetailsContainerProps{
+  nameClinic: string,
+  address: string,
+  contactClinic: string,
+  dateTime: string,
+  nameProduct: string,
+};
+
+export function UserServiceDetailsContainer({ nameClinic, address, contactClinic, dateTime, nameProduct }: UserServiceDetailsContainerProps){
   return(
     <section className='max-w-[37.5em] p-2 rounded bg-boxColor lg:p-4' >
       <Image
         src={ bannerDefault }
         alt='Banner DentalSupport'
+        priority
         className='object-cover'
       />
 
@@ -14,31 +23,31 @@ export function UserServiceDetailsContainer(){
         <div>
           <h2 className='text-darkPrimaryColor font-bold' >Clínica</h2>
           <p className='text-gray-500 font-medium' >
-            Odonto Mais
+            { nameClinic }
           </p>
         </div>
         <div>
           <h2 className='text-darkPrimaryColor font-bold' >Endereço</h2>
           <p className='text-gray-600 font-medium' >
-            Rua São Gonçalo, 200 - SP
+            { address }
           </p>
         </div>
         <div>
           <h2 className='text-darkPrimaryColor font-bold' >Contato</h2>
           <p className='text-gray-600 font-medium' >
-            11 96754-2333
+            { contactClinic }
           </p>
         </div>
         <div>
           <h2 className='text-darkPrimaryColor font-bold' >Data</h2>
           <p className='text-gray-600 font-medium' >
-            29/02/2024 às 13:00
+            { dateTime }
           </p>
         </div>
         <div>
           <h2 className='text-darkPrimaryColor font-bold' >Serviço</h2>
           <p className='text-gray-600 font-medium' >
-            Limpeza
+            { nameProduct }
           </p>
         </div>
       </section>
