@@ -74,3 +74,9 @@ export function newQueryIcon(color: string){
     <FaSquarePlus size={30} color={ color } />
   );
 };
+
+export function settingsIcon(color: string){
+  return(
+    <IoSettingsSharp size={30} color={ color } />
+  );
+};
