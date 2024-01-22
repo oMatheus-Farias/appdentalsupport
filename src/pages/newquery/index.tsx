@@ -1,4 +1,4 @@
-import { useContext, useState, FormEvent } from 'react';
+import { useContext, useState, FormEvent, useEffect } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 
 import Head from 'next/head';
@@ -9,10 +9,48 @@ import { NavigationMobile } from '@/components/navigationMobile';
 
 import { newQueryIcon } from '@/icons';
 
+import { api } from '@/services/apiClient';
+
+interface ListClinicsItem{
+  id: string,
+  name: string,
+  address: string,
+  contact: string,
+  operation: string,
+  banner: string,
+};
+
 export default function NewQuery(){
   const { isChecked, dasktopSizeScreen } = useContext(ScreenSizeContext);
 
+  useEffect(() => {
+    async function getListAvailableClinics(){
+      try{
+        const response = await api.get('/clinics');
+
+        setListClinics(response.data);
+
+      }catch(err){
+        console.log(err);
+      };
+    };
+
+    getListAvailableClinics();
+  }, []);
+
   const [openNav, setOpenNav] = useState(false);
+
+  const [listClinics, setListClinics] = useState<ListClinicsItem[] | []>([]);
+  const [clinicSelected, setClinicSelected] = useState<ListClinicsItem | undefined>(listClinics[0]);
+  const [date, setDate] = useState('');
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+
+  function handleChangeSelect(id: string){
+    const clinicItem = listClinics.find(item => item?.id === id);
+
+    setClinicSelected(clinicItem);
+  };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>){
     event.preventDefault();
@@ -41,8 +79,19 @@ export default function NewQuery(){
               >
                 <label className='flex flex-col' >
                   <span className='text-lg text-darkPrimaryColor font-bold' >Clínica</span>
-                  <select className='px-2 rounded h-9' >
-                    <option>Odonto Mais</option>
+                  <select 
+                    onChange={ (event) => handleChangeSelect(event.target.value) }
+                    className='px-2 rounded h-9' >
+                    {listClinics.map(item => {
+                      return(
+                        <option
+                          key={ item?.id }
+                          value={ item?.id }
+                        >
+                          { item?.name }
+                        </option>
+                      )
+                    })}
                   </select>
                 </label>
 
@@ -91,6 +140,8 @@ export default function NewQuery(){
                     type='text'
                     name='date'
                     placeholder='Ex: 01/01/2024 - 10:00'
+                    value={ date }
+                    onChange={ (event) => setDate(event.target.value) }
                     className='px-3 rounded bg-white h-9'
                   />
                 </label>
@@ -104,6 +155,8 @@ export default function NewQuery(){
                     type='text'
                     name='name'
                     placeholder='Como deseja ser chamado'
+                    value={ name }
+                    onChange={ (event) => setName(event.target.value) }
                     className='px-3 rounded bg-white h-9'
                   />
                 </label>
@@ -117,6 +170,8 @@ export default function NewQuery(){
                     type='text'
                     name='contact'
                     placeholder='Ex: 11 912345678'
+                    value={ contact }
+                    onChange={ (event) => setContact(event.target.value) }
                     className='px-3 rounded bg-white h-9'
                   />
                 </label>
