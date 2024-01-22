@@ -12,7 +12,7 @@ interface NavigationMenuProps{
 
 export function NavigationMenu({ linkNameOne, linkNameTwo, linkNameTre }: NavigationMenuProps){
   return(
-    <div className='max-w-44 w-full min-h-screen h-full flex flex-col p-4 bg-primaryColor dark:bg-darkPrimaryColor' >
+    <div className='max-w-44 w-full min-h-screen flex flex-col p-4 bg-primaryColor dark:bg-darkPrimaryColor' >
       <Image
         src={ logo }
         alt='Logo DentalSupport'

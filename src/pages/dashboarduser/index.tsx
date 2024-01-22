@@ -12,6 +12,7 @@ import { HeaderMobile } from '@/components/headerMobile';
 import { NavigationMenu } from '@/components/navigationMenu';
 import { NavigationMobile } from '@/components/navigationMobile';
 import { PageTitle } from '@/components/pageTitle';
+import { UserServiceDetailsContainer } from '@/components/userServiceDetailsContainer';
 
 import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
 
@@ -37,7 +38,7 @@ export default function DashboardUser(){
           <HeaderMobile handleOpenNav={ () => setOpenNav(true) } />
         }
 
-        <main className='p-5 w-full' >
+        <div className='p-5 w-full' >
           <section className='flex items-center gap-2 mb-6 justify-end' >
             <Image
               src={ avatarDefault }
@@ -56,7 +57,11 @@ export default function DashboardUser(){
           </section>
 
           <PageTitle icon={ calendarIcon } title='Minhas consultas' />
-        </main>
+
+          <main className='mt-10 flex flex-col gap-4' >
+            <UserServiceDetailsContainer/>
+          </main>
+        </div>
       </div>
 
       {!dasktopSizeScreen && (
