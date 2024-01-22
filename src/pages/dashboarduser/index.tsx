@@ -87,7 +87,7 @@ export default function DashboardUser(){
           <main className='mt-10 flex flex-col gap-4' >
             { listDetailServices.length === 0 ? (
               <div>
-                <p>Teste</p>
+                <p className='dark:text-white' >Nenhuma consulta marcada.</p>
               </div>
             ) : (
               listDetailServices.map(item => {
