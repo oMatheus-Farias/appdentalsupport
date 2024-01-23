@@ -1,5 +1,6 @@
 import { useContext, useState, FormEvent, useEffect } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
+import { AuthContext } from '@/contexts/authContext';
 
 import Head from 'next/head';
 import { NavigationMenu } from '@/components/navigationMenu';
@@ -10,6 +11,7 @@ import { NavigationMobile } from '@/components/navigationMobile';
 import { newQueryIcon } from '@/icons';
 
 import { api } from '@/services/apiClient';
+import toast from 'react-hot-toast';
 
 interface ListClinicsItem{
   id: string,
@@ -22,6 +24,7 @@ interface ListClinicsItem{
 
 export default function NewQuery(){
   const { isChecked, dasktopSizeScreen } = useContext(ScreenSizeContext);
+  const { physicalPersonUser } = useContext(AuthContext);
 
   const [openNav, setOpenNav] = useState(false);
 
@@ -79,8 +82,38 @@ export default function NewQuery(){
     setContactClinic(clinicItem?.contact);
   };
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>){
+  async function handleSubmit(event: FormEvent<HTMLFormElement>){
     event.preventDefault();
+
+    if(!clinicSelected || !address || !operation || !contactClinic || !date || !name || !contact || !product){
+      toast.error('Ocorreu em erro tente novamente!');
+      return;
+    };
+
+    try{
+      await api.post('/service', {
+        nameClinic: clinicSelected?.name,
+        address,
+        contactClinic,
+        dateTime: date,
+        customer: name,
+        contactCustomer: contact,
+        nameProduct: product,
+        clinic_id: clinicSelected?.id,
+        user_id: physicalPersonUser?.id,
+      });
+
+      toast.success('Consulta Marcada com sucesso!');
+      setClinicSelected(listClinics[0]);
+      setDate('');
+      setName('');
+      setContact('');
+      setProduct('');
+
+    }catch(err){
+      console.log(err);
+      toast.error("Ocorreu um erro inesperado.")
+    };
   };
 
   return(

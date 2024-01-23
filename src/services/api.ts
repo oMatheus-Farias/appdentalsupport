@@ -3,7 +3,6 @@ import { parseCookies } from 'nookies';
 
 import { AuthTokenError } from './errors/AuthTokenError';
 import { signOut } from '@/contexts/authContext';
-import { signOutLegalPerson } from '@/contexts/authContext';
 
 export function setupAPIclient(ctx = undefined){
   let cookies = parseCookies(ctx);
@@ -21,7 +20,6 @@ export function setupAPIclient(ctx = undefined){
     if(error.response?.status === 401){
       if(typeof window !== undefined){
         signOut();
-        signOutLegalPerson();
       }else{
         return Promise.reject(new AuthTokenError());
       };

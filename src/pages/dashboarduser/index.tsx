@@ -26,7 +26,6 @@ interface ListDetailServiceItem{
   customer: string,
   contactCustomer: string,
   nameProduct: string,
-  product_id: string,
   clinic_id: string,
 };
 
