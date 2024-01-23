@@ -23,11 +23,24 @@ interface ListClinicsItem{
 export default function NewQuery(){
   const { isChecked, dasktopSizeScreen } = useContext(ScreenSizeContext);
 
+  const [openNav, setOpenNav] = useState(false);
+
+  const [listClinics, setListClinics] = useState<ListClinicsItem[] | []>([]);
+  const [detailClinic, setDetailClinic] = useState<ListClinicsItem>();
+
+  const [clinicSelected, setClinicSelected] = useState<ListClinicsItem | undefined>(listClinics[0]);
+  const [address, setAdress] = useState(detailClinic?.address);
+  const [operation, setOperation] = useState(detailClinic?.operation);
+  const [contactClinic, setContactClinic] = useState(detailClinic?.contact);
+  const [date, setDate] = useState('');
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+  const [product, setProduct] = useState('');
+
   useEffect(() => {
     async function getListAvailableClinics(){
       try{
         const response = await api.get('/clinics');
-
         setListClinics(response.data);
 
       }catch(err){
@@ -38,18 +51,32 @@ export default function NewQuery(){
     getListAvailableClinics();
   }, []);
 
-  const [openNav, setOpenNav] = useState(false);
+  useEffect(() => {
+    async function getDetailClinic(){
+      try{
+        const response = await api.get('/clinic/unique', {
+          params:{
+            clinic_id: clinicSelected?.id,
+          },
+        });
+        setDetailClinic(response.data);
 
-  const [listClinics, setListClinics] = useState<ListClinicsItem[] | []>([]);
-  const [clinicSelected, setClinicSelected] = useState<ListClinicsItem | undefined>(listClinics[0]);
-  const [date, setDate] = useState('');
-  const [name, setName] = useState('');
-  const [contact, setContact] = useState('');
+      }catch(err){
+        console.log(err);
+      };
+    };
+
+    getDetailClinic();
+  }, [])
 
   function handleChangeSelect(id: string){
     const clinicItem = listClinics.find(item => item?.id === id);
 
     setClinicSelected(clinicItem);
+
+    setAdress(clinicItem?.address);
+    setOperation(clinicItem?.operation);
+    setContactClinic(clinicItem?.contact);
   };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>){
@@ -100,7 +127,7 @@ export default function NewQuery(){
                   <input
                     type='text'
                     name='addressClinic'
-                    value='Rua São Gonçalo, 200'
+                    value={ address || detailClinic?.address || "" }
                     onChange={ () => {} }
                     disabled
                     className='px-3 rounded bg-white cursor-not-allowed text-gray-500 h-9'
@@ -112,7 +139,7 @@ export default function NewQuery(){
                   <input
                     type='text'
                     name='operation'
-                    value='Seg - Sex dàs 09:00 às 18:00'
+                    value={ operation || detailClinic?.operation || "" }
                     onChange={ () => {} }
                     disabled
                     className='px-3 rounded bg-white cursor-not-allowed text-gray-500 h-9'
@@ -124,7 +151,7 @@ export default function NewQuery(){
                   <input
                     type='text'
                     name='contactClinic'
-                    value='11 961372180'
+                    value={ contactClinic || detailClinic?.contact || "" }
                     onChange={ () => {} }
                     disabled
                     className='px-3 rounded bg-white cursor-not-allowed text-gray-500 h-9'
@@ -177,10 +204,18 @@ export default function NewQuery(){
                 </label>
 
                 <label className='flex flex-col' >
-                  <span className='text-lg text-darkPrimaryColor font-bold' >Serviços disponíveis</span>
-                  <select className='px-2 rounded h-9' >
-                    <option>Limpeza</option>
-                  </select>
+                  <span 
+                    className='text-lg text-darkPrimaryColor font-bold' >
+                    Serviço<span className='text-red-500' >*</span>
+                  </span>
+                  <input
+                    type='text'
+                    name='product'
+                    placeholder='Qual serviço deseja realizar'
+                    value={ product }
+                    onChange={ (event) => setProduct(event.target.value) }
+                    className='px-3 rounded bg-white h-9'
+                  />
                 </label>
 
                 <button 
