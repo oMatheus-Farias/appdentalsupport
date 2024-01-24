@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import bannerDefault from '../../../public/images/banner-default.png';
+import { arrImages } from '../../../public/images/arrImages';
 
 interface UserServiceDetailsContainerProps{
   nameClinic: string,
@@ -9,12 +9,19 @@ interface UserServiceDetailsContainerProps{
   nameProduct: string,
 };
 
+function randomNumber(){
+  const random = Math.floor(Math.random() * 5);
+
+  return random;
+};
+
 export function UserServiceDetailsContainer({ nameClinic, address, contactClinic, dateTime, nameProduct }: UserServiceDetailsContainerProps){
   
+
   return(
     <section className='max-w-[37.5em] p-2 rounded bg-boxColor lg:p-4' >
       <Image
-        src={ bannerDefault }
+        src={ arrImages[randomNumber()] }
         alt='Banner DentalSupport'
         priority
         className='object-cover'
