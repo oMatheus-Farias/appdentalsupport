@@ -14,12 +14,13 @@ import { NavigationMobile } from '@/components/navigationMobile';
 import { PageTitle } from '@/components/pageTitle';
 import { UserServiceDetailsContainer } from '@/components/userServiceDetailsContainer';
 import { Footer } from '@/components/footer';
+import { ModalServiceUser } from '@/components/modalServiceUser';
 
 import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
 import { api } from '@/services/apiClient';
 import axios from 'axios';
 
-interface ListDetailServiceItem{
+export interface ListDetailServiceItem{
   id: string,
   nameClinic: string,
   address: string,
@@ -38,6 +39,8 @@ export default function DashboardUser(){
   const [openNav, setOpenNav] = useState(false);
   const [listDetailServices, setListDetailServices] = useState<ListDetailServiceItem[]>([]);
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [openModal, setOpenModal] = useState(false);
+  const [serviceSelected, setServiceSelected] = useState<ListDetailServiceItem>();
 
   useEffect(() => {
     async function getServicesUser(){
@@ -76,6 +79,15 @@ export default function DashboardUser(){
 
   async function logout(){
     await logOutPhysicalPerson();
+  };
+
+  function handleModal(item: ListDetailServiceItem){
+    setOpenModal(true);
+    setServiceSelected(item);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   return(
@@ -122,7 +134,11 @@ export default function DashboardUser(){
             ) : (
               listDetailServices.map(item => {
                 return(
-                  <div key={item?.id} >
+                  <div 
+                    key={item?.id} 
+                    className='cursor-pointer w-fit'
+                    onClick={ () => handleModal(item) }
+                  >
                     <UserServiceDetailsContainer
                       nameClinic={ item?.nameClinic }
                       address={ item?.address }
@@ -145,6 +161,13 @@ export default function DashboardUser(){
           linkNameOne='Consultas'
           linkNameTwo='Nova Consulta'
           linkNameTre='Perfil'
+        />
+      )}
+
+      {openModal && (
+        <ModalServiceUser
+          closeModal={ () => setOpenModal(false) }
+          detail={ serviceSelected }
         />
       )}
 

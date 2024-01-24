@@ -64,6 +64,10 @@ export const uploadIcon = (
   <FiUpload size={20} color='#FFF' />
 );
 
+export const closeIcon = (
+  <IoClose size={26} color='#00466D' />
+);
+
 export function calendarIcon(color: string){
   return(
     <IoCalendarNumber size={30} color={ color } />
