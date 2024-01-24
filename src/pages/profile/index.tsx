@@ -25,7 +25,6 @@ export default function Profile(){
   const [contact, setContact] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [imageAvatar, setImageAvatar] = useState<File | null>(null);
-  const [imageUrlBackend, setImageUrlBackend] = useState('');
 
   useEffect(() => {
     async function getDetailUser(){
@@ -37,14 +36,18 @@ export default function Profile(){
         setEmail(email);
         setContact(contact);
 
-        const responseImg = await axios.get(`http://localhost:3333/files/${avatar}`, {
-          responseType: 'arraybuffer',
-        });
+        if(avatar !== ''){
+          const responseImg = await axios.get(`http://localhost:3333/files/${avatar}`, {
+            responseType: 'arraybuffer',
+          });
 
-        const imageBase64 = Buffer.from(responseImg.data, 'binary').toString('base64');
-        const url = `data:${responseImg.headers['content-type']};base64,${imageBase64}`;
+          const imageBase64 = Buffer.from(responseImg.data, 'binary').toString('base64');
+          const url = `data:${responseImg.headers['content-type']};base64,${imageBase64}`;
 
-        setAvatarUrl(url);
+          setAvatarUrl(url);
+        }else{
+          setAvatarUrl('');
+        };
       }catch(err){
         console.log(err);
       };

@@ -17,6 +17,7 @@ import { UserServiceDetailsContainer } from '@/components/userServiceDetailsCont
 
 import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
 import { api } from '@/services/apiClient';
+import axios from 'axios';
 
 interface ListDetailServiceItem{
   id: string,
@@ -36,6 +37,7 @@ export default function DashboardUser(){
 
   const [openNav, setOpenNav] = useState(false);
   const [listDetailServices, setListDetailServices] = useState<ListDetailServiceItem[]>([]);
+  const [avatarUrl, setAvatarUrl] = useState('');
 
   useEffect(() => {
     async function getServicesUser(){
@@ -44,12 +46,32 @@ export default function DashboardUser(){
   
         setListDetailServices(response.data);
 
+        const responseData = await api.get('/me');
+        const { avatar } = responseData.data;
+
+        if(avatar !== ''){
+          const responseImg = await axios.get(`http://localhost:3333/files/${avatar}`, {
+            responseType: 'arraybuffer',
+          });
+
+          const imageBase64 = Buffer.from(responseImg.data, 'binary').toString('base64');
+          const url = `data:${responseImg.headers['content-type']};base64,${imageBase64}`;
+
+          setAvatarUrl(url);
+        }else{
+          setAvatarUrl('');
+        };
+
       }catch(err){
         console.log(err);
       };
     };
 
     getServicesUser();
+
+    return () => {
+      setListDetailServices([]);
+    };
   }, []);
 
   async function logout(){
@@ -71,8 +93,12 @@ export default function DashboardUser(){
         <div className='p-5 w-full' >
           <section className='flex items-center gap-2 mb-6 justify-end' >
             <Image
-              src={ avatarDefault }
+              src={ avatarUrl ? avatarUrl : avatarDefault }
               alt='Imagem avatar'
+              priority
+              width={60}
+              height={60}
+              className='w-12 h-12 object-cover rounded-full'
             />
 
             <div className={ `text-xs ${isChecked ? 'text-black' : 'text-white'}` } >
