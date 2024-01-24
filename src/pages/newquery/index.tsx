@@ -11,6 +11,7 @@ import { Footer } from '@/components/footer';
 
 import { newQueryIcon } from '@/icons';
 
+import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
 import { api } from '@/services/apiClient';
 import toast from 'react-hot-toast';
 
@@ -278,3 +279,9 @@ export default function NewQuery(){
     </div>
   );
 };
+
+export const getServerSideProps = canSSRAuthPhysicalPerson(async (ctx) => {
+  return{
+    props:{},
+  };
+});

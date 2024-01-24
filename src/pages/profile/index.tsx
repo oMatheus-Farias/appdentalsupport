@@ -12,6 +12,8 @@ import { NavigationMobile } from '@/components/navigationMobile';
 import { Footer } from '@/components/footer';
 
 import { settingsIcon, uploadIcon } from '@/icons';
+
+import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
 import { api } from '@/services/apiClient';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -253,3 +255,9 @@ export default function Profile(){
     </div>
   );
 };
+
+export const getServerSideProps = canSSRAuthPhysicalPerson(async (ctx) => {
+  return{
+    props:{},
+  };
+});
