@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect, FormEvent } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
+import { AuthContext } from '@/contexts/authContext';
 import avatarDefault from '../../../public/images/avatar-default.png';
 
 import Head from 'next/head';
@@ -23,6 +24,7 @@ interface PhysicalPersonProps{
 
 export default function Profile(){
   const { isChecked, dasktopSizeScreen } = useContext(ScreenSizeContext);
+  const { logOutPhysicalPerson } = useContext(AuthContext);
 
   const [openNav, setOpenNav] = useState(false);
   const [name, setName] = useState('');
@@ -70,6 +72,10 @@ export default function Profile(){
       console.log(err);
       toast.error('Erro ao tentar alterar.');
     };
+  };
+
+  async function logOut(){
+    await logOutPhysicalPerson();
   };
 
   return(
@@ -157,6 +163,7 @@ export default function Profile(){
               <div className='max-w-[25em] w-full' >
                 <button 
                   type='submit'
+                  onClick={ logOut }
                   className='w-full rounded bg-gray-700 h-9 text-white font-semibold text-lg mt-5' 
                 >
                   Sair da conta
