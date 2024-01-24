@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 import { AuthContext } from '@/contexts/authContext';
+import { parseCookies } from 'nookies';
 
 import avatarDefault from '../../../public/images/avatar-default-small.png';
 import { calendarIcon } from '@/icons';
@@ -38,14 +39,18 @@ export default function DashboardUser(){
 
   useEffect(() => {
     async function getServicesUser(){
-      const response = await api.get('/services');
+      try{
+        const response = await api.get('/services');
   
-      setListDetailServices(response.data);
+        setListDetailServices(response.data);
+
+      }catch(err){
+        console.log(err);
+      };
     };
 
     getServicesUser();
-
-  }, [listDetailServices]);
+  }, []);
 
   async function logout(){
     await logOutPhysicalPerson();

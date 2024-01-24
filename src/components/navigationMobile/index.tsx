@@ -55,7 +55,7 @@ export function NavigationMobile({ handleCloseNav, openNav, linkNameOne, linkNam
           </li>
           <li>
             <Link
-              href='/settings'
+              href='/profile'
               className='flex items-center gap-2'
             >
               { settingsIconMenu }

@@ -40,7 +40,7 @@ export function NavigationMenu({ linkNameOne, linkNameTwo, linkNameTre }: Naviga
           </li>
           <li>
             <Link
-              href='/settings'
+              href='/profile'
               className='flex items-center gap-2'
             >
               { settingsIconMenu }
