@@ -1,12 +1,35 @@
 import { closeIcon } from '@/icons';
 import { ListDetailServiceItem } from '@/pages/dashboarduser';
+import { api } from '@/services/apiClient';
+import toast from 'react-hot-toast';
 
 interface ModalServiceUserProps{
   closeModal: () => void;
   detail: ListDetailServiceItem | undefined,
+  listServices: ListDetailServiceItem[],
+  setListServices: any,
 };
 
-export function ModalServiceUser({ closeModal, detail }: ModalServiceUserProps){
+export function ModalServiceUser({ closeModal, detail, listServices, setListServices }: ModalServiceUserProps){
+  async function handleCancelService(){
+    try{
+      await api.delete('/user/deleteservice', {
+        params:{
+          service_id: detail?.id,
+        },
+      });
+
+      const newList = listServices.filter(item => item.id !== detail?.id);
+      setListServices(newList);
+
+      toast.success('Consulta cancelada com sucesso!');
+      closeModal();
+
+    }catch(err){
+      console.log(err);
+    };
+  };
+
   return(
     <div className="absolute top-0 left-0 w-full min-h-screen flex justify-center items-center bg-transparentBlackColor z-10" >
       <section className="w-[90%] max-w-[40em] bg-white p-4 rounded" >
@@ -41,6 +64,7 @@ export function ModalServiceUser({ closeModal, detail }: ModalServiceUserProps){
           </div>
 
           <button 
+            onClick={ handleCancelService }
             className='w-full max-w-[14.3em] rounded bg-gray-700 h-9 text-white font-semibold mt-5' 
           >
             Cancelar Consulta

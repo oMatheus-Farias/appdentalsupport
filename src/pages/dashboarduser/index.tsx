@@ -168,6 +168,8 @@ export default function DashboardUser(){
         <ModalServiceUser
           closeModal={ () => setOpenModal(false) }
           detail={ serviceSelected }
+          listServices={ listDetailServices }
+          setListServices={ setListDetailServices }
         />
       )}
 
