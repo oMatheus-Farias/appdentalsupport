@@ -1,10 +1,7 @@
-import { useContext } from 'react';
-import { ScreenSizeContext } from '@/contexts/screenSizeContext';
-
 import { MdEmail, MdLockPerson, MdLocationOn } from 'react-icons/md';
 import { FaUser, FaPhoneAlt, FaBuilding, FaCalendarAlt } from 'react-icons/fa';
 import { FaSquarePlus, FaSun, FaMoon } from "react-icons/fa6";
-import { FiMenu } from 'react-icons/fi';
+import { FiMenu, FiUpload } from 'react-icons/fi';
 import { IoCalendarNumber, IoSettingsSharp, IoClose } from "react-icons/io5";
 
 export const emailIcon = (
@@ -61,6 +58,10 @@ export const sunIcon = (
 
 export const moonIcon = (
   <FaMoon size={16} color='#00466D' />
+);
+
+export const uploadIcon = (
+  <FiUpload size={20} color='#FFF' />
 );
 
 export function calendarIcon(color: string){

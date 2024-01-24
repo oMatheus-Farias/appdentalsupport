@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, FormEvent } from 'react';
+import { useContext, useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 import { AuthContext } from '@/contexts/authContext';
 import avatarDefault from '../../../public/images/avatar-default.png';
@@ -10,17 +10,10 @@ import { HeaderMobile } from '@/components/headerMobile';
 import { PageTitle } from '@/components/pageTitle';
 import { NavigationMobile } from '@/components/navigationMobile';
 
-import { settingsIcon } from '@/icons';
+import { settingsIcon, uploadIcon } from '@/icons';
 import { api } from '@/services/apiClient';
+import axios from 'axios';
 import toast from 'react-hot-toast';
-
-interface PhysicalPersonProps{
-  id: string,
-  name: string,
-  email: string,
-  contact: string,
-  avatar: string,
-};
 
 export default function Profile(){
   const { isChecked, dasktopSizeScreen } = useContext(ScreenSizeContext);
@@ -30,16 +23,28 @@ export default function Profile(){
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [contact, setContact] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState('');
+  const [imageAvatar, setImageAvatar] = useState<File | null>(null);
+  const [imageUrlBackend, setImageUrlBackend] = useState('');
 
   useEffect(() => {
     async function getDetailUser(){
       try{
         const response = await api.get('/me');
-        const { name, email, contact } = response.data;
+        const { name, email, contact, avatar } = response.data;
 
         setName(name);
         setEmail(email);
         setContact(contact);
+
+        const responseImg = await axios.get(`http://localhost:3333/files/${avatar}`, {
+          responseType: 'arraybuffer',
+        });
+
+        const imageBase64 = Buffer.from(responseImg.data, 'binary').toString('base64');
+        const url = `data:${responseImg.headers['content-type']};base64,${imageBase64}`;
+
+        setAvatarUrl(url);
       }catch(err){
         console.log(err);
       };
@@ -78,6 +83,46 @@ export default function Profile(){
     await logOutPhysicalPerson();
   };
 
+  function handleFile(event: ChangeEvent<HTMLInputElement>){
+    const file = event.target.files;
+
+    if(!file){
+      return;
+    };
+
+    const image = file[0];
+
+    if(!image){
+      return;
+    };
+
+    if(image.type === 'image/png' || image.type === 'image/jpeg'){
+      setImageAvatar(image);
+      setAvatarUrl(URL.createObjectURL(image));
+    };
+  };
+
+  async function handleUpdateAvatar(){
+    try{
+      const data = new FormData();
+
+      if(imageAvatar === null){
+        toast.error('Insira uma imagem válida!');
+        return;
+      };
+
+      data.append('file', imageAvatar);
+
+      await api.put('/avatar', data);
+
+      toast.success('Atualizada com sucesso!');
+
+    }catch(err){
+      console.log(err);
+      toast.error('Erro ao tentar atualizar foto de perfil.');
+    };
+  };
+
   return(
     <div className={ `${isChecked ? '' : 'dark'}` } >
       <Head>
@@ -96,13 +141,29 @@ export default function Profile(){
           <main className='mt-10 flex flex-col gap-4' >
             <div className='max-w-[37.5em] p-2 rounded bg-boxColor lg:p-4' >
               <div className='max-w-[25em] w-full flex flex-col gap-4 items-center' >
-                <Image
-                  src={ avatarDefault }
-                  alt='Avatar'
-                  priority
-                />
+                <label className='min-w-[11.2em] min-h-[11.2em] rounded-full flex items-center justify-center cursor-pointer bg-slate-500' >
+                  <span className='z-10 absolute' >{ uploadIcon }</span>
 
-                <button className='bg-gray-700 rounded h-9 px-7 font-semibold text-white' >
+                  <input
+                    type='file'
+                    onChange={ handleFile }
+                    className='hidden'
+                  />
+
+                  <Image
+                    src={ avatarUrl ? avatarUrl : avatarDefault }
+                    alt='Avatar'
+                    priority
+                    width={180}
+                    height={180}
+                    className='w-[11.2em] h-[11.2em] rounded-full object-cover'
+                  />
+                </label>
+
+                <button 
+                  onClick={ handleUpdateAvatar }
+                  className='bg-gray-700 rounded h-9 px-7 font-semibold text-white' 
+                >
                   Alterar Foto
                 </button>
               </div>
