@@ -9,6 +9,7 @@ import { NavigationMenu } from '@/components/navigationMenu';
 import { HeaderMobile } from '@/components/headerMobile';
 import { PageTitle } from '@/components/pageTitle';
 import { NavigationMobile } from '@/components/navigationMobile';
+import { Footer } from '@/components/footer';
 
 import { settingsIcon, uploadIcon } from '@/icons';
 import { api } from '@/services/apiClient';
@@ -247,6 +248,8 @@ export default function Profile(){
           linkNameTre='Perfil'
         />
       )}
+
+      <Footer/>
     </div>
   );
 };

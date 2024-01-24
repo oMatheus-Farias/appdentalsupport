@@ -10,6 +10,7 @@ interface UserServiceDetailsContainerProps{
 };
 
 export function UserServiceDetailsContainer({ nameClinic, address, contactClinic, dateTime, nameProduct }: UserServiceDetailsContainerProps){
+  
   return(
     <section className='max-w-[37.5em] p-2 rounded bg-boxColor lg:p-4' >
       <Image

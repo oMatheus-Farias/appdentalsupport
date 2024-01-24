@@ -7,6 +7,7 @@ import { NavigationMenu } from '@/components/navigationMenu';
 import { HeaderMobile } from '@/components/headerMobile';
 import { PageTitle } from '@/components/pageTitle';
 import { NavigationMobile } from '@/components/navigationMobile';
+import { Footer } from '@/components/footer';
 
 import { newQueryIcon } from '@/icons';
 
@@ -272,6 +273,8 @@ export default function NewQuery(){
           linkNameTre='Perfil'
         />
       )}
+
+      <Footer/>
     </div>
   );
 };

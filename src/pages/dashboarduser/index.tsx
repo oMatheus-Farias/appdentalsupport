@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 import { AuthContext } from '@/contexts/authContext';
-import { parseCookies } from 'nookies';
 
 import avatarDefault from '../../../public/images/avatar-default-small.png';
 import { calendarIcon } from '@/icons';
@@ -14,6 +13,7 @@ import { NavigationMenu } from '@/components/navigationMenu';
 import { NavigationMobile } from '@/components/navigationMobile';
 import { PageTitle } from '@/components/pageTitle';
 import { UserServiceDetailsContainer } from '@/components/userServiceDetailsContainer';
+import { Footer } from '@/components/footer';
 
 import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
 import { api } from '@/services/apiClient';
@@ -147,6 +147,8 @@ export default function DashboardUser(){
           linkNameTre='Perfil'
         />
       )}
+
+      <Footer/>
     </div>
   );
 };
