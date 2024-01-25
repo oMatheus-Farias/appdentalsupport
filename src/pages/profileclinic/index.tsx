@@ -1,7 +1,6 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
 import { AuthContext } from '@/contexts/authContext';
-import { canSSRAuthLegalPerson } from '@/utils/canSSRAuthLegalPerson';
 
 import Head from 'next/head';
 import { NavigationMenu } from '@/components/navigationMenu';
@@ -12,11 +11,40 @@ import { Footer } from '@/components/footer';
 
 import { settingsIcon } from '@/icons';
 
+import { canSSRAuthLegalPerson } from '@/utils/canSSRAuthLegalPerson';
+import { apiClinic } from '@/services/apiClientClinic';
+
 export default function ProfileClinic(){
   const { isChecked, dasktopSizeScreen } = useContext(ScreenSizeContext);
   const { logOutLegalPerson } = useContext(AuthContext);
 
   const [openNav, setOpenNav] = useState(false);
+  const [nameClinic, setNameClinic] = useState('');
+  const [address, setAddress] = useState('');
+  const [contact, setContact] = useState('');
+  const [operation, setOperation] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    async function getDetailClinic(){
+      try{
+        const response = await apiClinic.get('/me/clinic');
+
+        const { id, name, address, contact, operation, email, status } = response.data;
+
+        setNameClinic(name);
+        setAddress(address);
+        setContact(contact);
+        setOperation(operation);
+        setEmail(email);
+
+      }catch(err){
+        console.log(err);
+      };
+    };
+
+    getDetailClinic();
+  }, []);
 
   async function logOut(){
     await logOutLegalPerson();
@@ -52,8 +80,8 @@ export default function ProfileClinic(){
                     <input
                       type='text'
                       name='nameClinic'
-                      // value={ name }
-                      // onChange={ (event) => setName(event.target.value) }
+                      value={ nameClinic }
+                      onChange={ (event) => setNameClinic(event.target.value) }
                       className='px-3 rounded bg-white h-9'
                     />
                   </label>
@@ -65,8 +93,8 @@ export default function ProfileClinic(){
                     <input
                       type='text'
                       name='address'
-                      // value={ email }
-                      // onChange={ (event) => setEmail(event.target.value) }
+                      value={ address }
+                      onChange={ (event) => setAddress(event.target.value) }
                       disabled
                       className='px-3 rounded bg-white h-9 cursor-not-allowed'
                     />
@@ -79,8 +107,8 @@ export default function ProfileClinic(){
                     <input
                       type='text'
                       name='contact'
-                      // value={ contact }
-                      // onChange={ (event) => setContact(event.target.value) }
+                      value={ contact }
+                      onChange={ (event) => setContact(event.target.value) }
                       className='px-3 rounded bg-white h-9'
                     />
                   </label>
@@ -92,8 +120,8 @@ export default function ProfileClinic(){
                     <input
                       type='text'
                       name='operation'
-                      // value={ contact }
-                      // onChange={ (event) => setContact(event.target.value) }
+                      value={ operation }
+                      onChange={ (event) => setOperation(event.target.value) }
                       className='px-3 rounded bg-white h-9'
                     />
                   </label>
@@ -106,8 +134,8 @@ export default function ProfileClinic(){
                       type='text'
                       name='operation'
                       disabled
-                      // value={ contact }
-                      // onChange={ (event) => setContact(event.target.value) }
+                      value={ email }
+                      onChange={ (event) => setEmail(event.target.value) }
                       className='px-3 rounded bg-white h-9 cursor-not-allowed'
                     />
                   </label>
