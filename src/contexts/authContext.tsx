@@ -13,6 +13,7 @@ interface AuthContextData {
   logOutPhysicalPerson: () => Promise<void>,
   sigInLegalPerson: (credencials: SigInLegalPersonProps) => Promise<void>,
   sigUpLegalPerson: (credencials: SigUpLegalPersonProps) => Promise<void>,
+  logOutLegalPerson: () => Promise<void>,
   physicalPersonUser: PhysicalPersonProps | null,
   legalPersonUser: LegalPersonProps | null,
 };
@@ -272,6 +273,19 @@ export default function AuthContextProvider({ children }: AuthContextProps){
     };
   };
 
+  async function logOutLegalPerson(){
+    try{
+      destroyCookie(null, '@dentalsupportclinic.token', { path: '/' });
+      Router.push('/loginclinic');
+      setLegalPersonUser(null);
+      toast.success('LogOut realizado com sucesso!');
+
+    }catch(err){
+      console.log('Erro tentar fazer logOut', err);
+      toast.error('Algo deu errado!');
+    };
+  };
+
   return(
     <AuthContext.Provider 
       value={{ 
@@ -280,6 +294,7 @@ export default function AuthContextProvider({ children }: AuthContextProps){
         logOutPhysicalPerson, 
         sigInLegalPerson, 
         sigUpLegalPerson,
+        logOutLegalPerson,
         physicalPersonUser,
         legalPersonUser
       }} >

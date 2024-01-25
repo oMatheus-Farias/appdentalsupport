@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { ScreenSizeContext } from '@/contexts/screenSizeContext';
+import { AuthContext } from '@/contexts/authContext';
 import { canSSRAuthLegalPerson } from '@/utils/canSSRAuthLegalPerson';
 
 import Head from 'next/head';
@@ -13,8 +14,13 @@ import { settingsIcon } from '@/icons';
 
 export default function ProfileClinic(){
   const { isChecked, dasktopSizeScreen } = useContext(ScreenSizeContext);
+  const { logOutLegalPerson } = useContext(AuthContext);
 
   const [openNav, setOpenNav] = useState(false);
+
+  async function logOut(){
+    await logOutLegalPerson();
+  };
 
   return(
     <div className={ `${isChecked ? '' : 'dark'}` } >
@@ -117,7 +123,7 @@ export default function ProfileClinic(){
               <div className='max-w-[25em] w-full' >
                 <button 
                   type='submit'
-                  // onClick={ logOut }
+                  onClick={ logOut }
                   className='w-full rounded bg-gray-700 h-9 text-white font-semibold text-lg mt-5' 
                 >
                   Sair da conta
