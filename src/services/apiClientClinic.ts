@@ -1,3 +1,3 @@
 import { setupAPIClientClinic } from "./apiClinic";
 
-export const apiClient = setupAPIClientClinic();
+export const apiClinic = setupAPIClientClinic();

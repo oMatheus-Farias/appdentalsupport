@@ -13,8 +13,8 @@ interface AuthContextData {
   logOutPhysicalPerson: () => Promise<void>,
   sigInLegalPerson: (credencials: SigInLegalPersonProps) => Promise<void>,
   sigUpLegalPerson: (credencials: SigUpLegalPersonProps) => Promise<void>,
-  signedPhysicalPersonUser: boolean,
   physicalPersonUser: PhysicalPersonProps | null,
+  legalPersonUser: LegalPersonProps | null,
 };
 
 interface AuthContextProps{
@@ -94,7 +94,6 @@ export function signOutLegalPerson(){
 
 export default function AuthContextProvider({ children }: AuthContextProps){
   const [physicalPersonUser, setPhysicalPersonUser] = useState<PhysicalPersonProps | null>(null);
-  const signedPhysicalPersonUser = !!physicalPersonUser;
   const [legalPersonUser, setLegalPersonUser] = useState<LegalPersonProps | null>(null);
 
   useEffect(() => {
@@ -277,8 +276,8 @@ export default function AuthContextProvider({ children }: AuthContextProps){
         logOutPhysicalPerson, 
         sigInLegalPerson, 
         sigUpLegalPerson,
-        signedPhysicalPersonUser,
         physicalPersonUser,
+        legalPersonUser
       }} >
       { children }
     </AuthContext.Provider>
