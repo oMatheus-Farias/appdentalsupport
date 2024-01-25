@@ -43,40 +43,41 @@ export default function DashboardUser(){
   const [serviceSelected, setServiceSelected] = useState<ListDetailServiceItem>();
 
   useEffect(() => {
-    async function getServicesUser(){
-      if(physicalPersonUser){
-        try{
-          const response = await api.get('/services');
+    // async function getServicesUser(){
+    //   if(physicalPersonUser){
+    //     try{
+    //       const response = await api.get('/services');
     
-          setListDetailServices(response.data);
+    //       setListDetailServices(response.data);
   
-          const responseData = await api.get('/me');
-          const { avatar } = responseData.data;
+    //       const responseData = await api.get('/me');
+    //       const { avatar } = responseData.data;
   
-          if(avatar !== ''){
-            const responseImg = await axios.get(`http://localhost:3333/files/${avatar}`, {
-              responseType: 'arraybuffer',
-            });
+    //       if(avatar !== ''){
+    //         const responseImg = await axios.get(`http://localhost:3333/files/${avatar}`, {
+    //           responseType: 'arraybuffer',
+    //         });
   
-            const imageBase64 = Buffer.from(responseImg.data, 'binary').toString('base64');
-            const url = `data:${responseImg.headers['content-type']};base64,${imageBase64}`;
+    //         const imageBase64 = Buffer.from(responseImg.data, 'binary').toString('base64');
+    //         const url = `data:${responseImg.headers['content-type']};base64,${imageBase64}`;
   
-            setAvatarUrl(url);
-          }else{
-            setAvatarUrl('');
-          };
+    //         setAvatarUrl(url);
+    //       }else{
+    //         setAvatarUrl('');
+    //       };
   
-        }catch(err){
-          console.log(err);
-        };
-      };
-    };
+    //     }catch(err){
+    //       console.log(err);
+    //     };
+    //   };
+    // };
 
-    getServicesUser();
+    // getServicesUser();
 
-    return () => {
-      setListDetailServices([]);
-    };
+    // return () => {
+    //   setListDetailServices([]);
+    // };
+    console.log(physicalPersonUser)
   }, []);
 
   async function logout(){

@@ -97,8 +97,12 @@ export default function AuthContextProvider({ children }: AuthContextProps){
   const [legalPersonUser, setLegalPersonUser] = useState<LegalPersonProps | null>(null);
 
   useEffect(() => {
-    verifyAuthenticatedPhysicalPerson();
-    verifyAuthenticatedLegalPerson();
+    function verifyAuth(){
+      verifyAuthenticatedPhysicalPerson();
+      verifyAuthenticatedLegalPerson();
+    };
+
+    verifyAuth();
   }, []);
 
   function verifyAuthenticatedPhysicalPerson(){
