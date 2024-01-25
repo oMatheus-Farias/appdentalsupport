@@ -4,6 +4,9 @@ import Link from 'next/link';
 
 import { closeMenuIcon, calendarIconMenu, newQueryIconMenu, settingsIconMenu } from '@/icons';
 
+import { useContext } from 'react';
+import { AuthContext } from '@/contexts/authContext';
+
 interface NavigationMobileProps{
   handleCloseNav: () => void,
   openNav: boolean,
@@ -13,6 +16,8 @@ interface NavigationMobileProps{
 };
 
 export function NavigationMobile({ handleCloseNav, openNav, linkNameOne, linkNameTwo, linkNameTre }: NavigationMobileProps){
+  const { legalPersonUser } = useContext(AuthContext);
+
   return(
     <div 
       className="w-full h-screen absolute top-0 left-0 transition-all z-10 bg-transparentBlackColor" 
@@ -37,14 +42,15 @@ export function NavigationMobile({ handleCloseNav, openNav, linkNameOne, linkNam
         <ul className='text-white font-medium flex flex-col gap-7' >
           <li>
             <Link 
-              href='/dashboarduser' 
+              href={legalPersonUser ? '/dashboardclinic' : '/dashboarduser' }
               className='flex items-center gap-2'
             >
               { calendarIconMenu }
               { linkNameOne }
             </Link>
           </li>
-          <li>
+          {!legalPersonUser && (
+            <li>
             <Link 
               href='/newquery' 
               className='flex items-center gap-2'
@@ -53,9 +59,10 @@ export function NavigationMobile({ handleCloseNav, openNav, linkNameOne, linkNam
               { linkNameTwo }
             </Link>
           </li>
+          )}
           <li>
             <Link
-              href='/profile'
+              href={legalPersonUser ? '/profileclinic' : '/profile'}
               className='flex items-center gap-2'
             >
               { settingsIconMenu }
