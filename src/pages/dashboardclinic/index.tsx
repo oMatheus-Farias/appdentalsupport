@@ -13,6 +13,7 @@ import { ClinicServiceDetail } from '@/components/clinicServiceDetail';
 
 import { canSSRAuthLegalPerson } from '@/utils/canSSRAuthLegalPerson';
 import { apiClinic } from '@/services/apiClientClinic';
+import { parseCookies } from 'nookies';
 
 interface ListDetailService{
   id: string,
@@ -28,6 +29,7 @@ export default function DashboardClinic(){
 
   const [openNav, setOpenNav] = useState(false);
   const [listService, setListService] = useState<ListDetailService[]>([]);
+  const { '@dentalsupportclinic.token': token } = parseCookies();
 
   useEffect(() => {
     async function getListService(){
@@ -41,7 +43,7 @@ export default function DashboardClinic(){
       };
     };
 
-   if(legalPersonUser){
+   if(token){
     getListService();
    };
   }, []);

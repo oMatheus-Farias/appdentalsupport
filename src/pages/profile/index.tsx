@@ -229,7 +229,6 @@ export default function Profile(){
               
               <div className='max-w-[25em] w-full' >
                 <button 
-                  type='submit'
                   onClick={ logOut }
                   className='w-full rounded bg-gray-700 h-9 text-white font-semibold text-lg mt-5' 
                 >

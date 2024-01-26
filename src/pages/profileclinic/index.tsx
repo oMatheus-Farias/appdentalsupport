@@ -7,12 +7,15 @@ import { NavigationMenu } from '@/components/navigationMenu';
 import { NavigationMobile } from '@/components/navigationMobile';
 import { HeaderMobile } from '@/components/headerMobile';
 import { PageTitle } from '@/components/pageTitle';
+import { Switch } from '@/components/switch';
 import { Footer } from '@/components/footer';
 
 import { settingsIcon } from '@/icons';
 
 import { canSSRAuthLegalPerson } from '@/utils/canSSRAuthLegalPerson';
 import { apiClinic } from '@/services/apiClientClinic';
+
+import { parseCookies } from 'nookies';
 
 export default function ProfileClinic(){
   const { isChecked, dasktopSizeScreen } = useContext(ScreenSizeContext);
@@ -24,31 +27,38 @@ export default function ProfileClinic(){
   const [contact, setContact] = useState('');
   const [operation, setOperation] = useState('');
   const [email, setEmail] = useState('');
+  const [stateClinic, setStateClinic] = useState<boolean>(false);
+  const { '@dentalsupportclinic.token': token } = parseCookies();
 
   useEffect(() => {
     async function getDetailClinic(){
       try{
         const response = await apiClinic.get('/me/clinic');
 
-        const { id, name, address, contact, operation, email, status } = response.data;
+        const { name, address, contact, operation, email, status } = response.data;
 
         setNameClinic(name);
         setAddress(address);
         setContact(contact);
         setOperation(operation);
         setEmail(email);
+        setStateClinic(status);
 
       }catch(err){
         console.log(err);
       };
     };
 
-    getDetailClinic();
+    if(token){
+      getDetailClinic();
+    };
   }, []);
 
   async function logOut(){
     await logOutLegalPerson();
   };
+
+  console.log(stateClinic)
 
   return(
     <div className={ `${isChecked ? '' : 'dark'}` } >
@@ -139,18 +149,20 @@ export default function ProfileClinic(){
                       className='px-3 rounded bg-white h-9 cursor-not-allowed'
                     />
                   </label>
-
-                  <button 
-                    type='submit'
-                    className='w-full rounded bg-darkPrimaryColor h-9 text-white font-semibold text-lg mt-5' 
-                  >
-                    Salvar
-                  </button>
               </form>
-              
-              <div className='max-w-[25em] w-full' >
+
+              <div className='max-w-[25em] w-full flex flex-col mt-4' >
+                <Switch
+                  setStatus={ setStateClinic }
+                />
+
                 <button 
-                  type='submit'
+                  className='w-full rounded bg-darkPrimaryColor h-9 text-white font-semibold text-lg mt-5' 
+                >
+                  Salvar
+                </button>
+              
+                <button 
                   onClick={ logOut }
                   className='w-full rounded bg-gray-700 h-9 text-white font-semibold text-lg mt-5' 
                 >

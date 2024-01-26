@@ -19,6 +19,7 @@ import { ModalServiceUser } from '@/components/modalServiceUser';
 import { canSSRAuthPhysicalPerson } from '@/utils/canSSRAuthPhysicalPerson';
 import { api } from '@/services/apiClient';
 import axios from 'axios';
+import { parseCookies } from 'nookies';
 
 export interface ListDetailServiceItem{
   id: string,
@@ -41,43 +42,39 @@ export default function DashboardUser(){
   const [avatarUrl, setAvatarUrl] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [serviceSelected, setServiceSelected] = useState<ListDetailServiceItem>();
+  const { '@dentalsupport.token': token } = parseCookies();
 
   useEffect(() => {
-    // async function getServicesUser(){
-    //   if(physicalPersonUser){
-    //     try{
-    //       const response = await api.get('/services');
-    
-    //       setListDetailServices(response.data);
+    async function getServicesUser(){
+      try{
+        const response = await api.get('/services');
   
-    //       const responseData = await api.get('/me');
-    //       const { avatar } = responseData.data;
-  
-    //       if(avatar !== ''){
-    //         const responseImg = await axios.get(`http://localhost:3333/files/${avatar}`, {
-    //           responseType: 'arraybuffer',
-    //         });
-  
-    //         const imageBase64 = Buffer.from(responseImg.data, 'binary').toString('base64');
-    //         const url = `data:${responseImg.headers['content-type']};base64,${imageBase64}`;
-  
-    //         setAvatarUrl(url);
-    //       }else{
-    //         setAvatarUrl('');
-    //       };
-  
-    //     }catch(err){
-    //       console.log(err);
-    //     };
-    //   };
-    // };
+        setListDetailServices(response.data);
 
-    // getServicesUser();
+        const responseData = await api.get('/me');
+        const { avatar } = responseData.data;
 
-    // return () => {
-    //   setListDetailServices([]);
-    // };
-    console.log(physicalPersonUser)
+        if(avatar !== ''){
+          const responseImg = await axios.get(`http://localhost:3333/files/${avatar}`, {
+            responseType: 'arraybuffer',
+          });
+
+          const imageBase64 = Buffer.from(responseImg.data, 'binary').toString('base64');
+          const url = `data:${responseImg.headers['content-type']};base64,${imageBase64}`;
+
+          setAvatarUrl(url);
+        }else{
+          setAvatarUrl('');
+        };
+
+      }catch(err){
+        console.log(err);
+      };
+    };
+
+    if(token){
+      getServicesUser();
+    };
   }, []);
 
   async function logout(){
