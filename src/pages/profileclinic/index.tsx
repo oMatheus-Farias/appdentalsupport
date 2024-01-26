@@ -16,6 +16,7 @@ import { canSSRAuthLegalPerson } from '@/utils/canSSRAuthLegalPerson';
 import { apiClinic } from '@/services/apiClientClinic';
 
 import { parseCookies } from 'nookies';
+import toast from 'react-hot-toast';
 
 export default function ProfileClinic(){
   const { isChecked, dasktopSizeScreen } = useContext(ScreenSizeContext);
@@ -54,11 +55,27 @@ export default function ProfileClinic(){
     };
   }, []);
 
+  async function handleUpdate(){
+    try{
+      await apiClinic.put('/clinic', {
+        name: nameClinic,
+        address,
+        contact,
+        operation,
+        status: stateClinic,
+      });
+
+      toast.success('Atualizado com sucesso!');
+
+    }catch(err){
+      console.log(err);
+      toast.error('Erro ao tentar atualiza');
+    };
+  };
+
   async function logOut(){
     await logOutLegalPerson();
   };
-
-  console.log(stateClinic)
 
   return(
     <div className={ `${isChecked ? '' : 'dark'}` } >
@@ -79,7 +96,6 @@ export default function ProfileClinic(){
             <div className='max-w-[37.5em] p-2 rounded bg-boxColor lg:p-4' >
 
               <form 
-                // onSubmit={ handleUpdate }
                 className='max-w-[25em] w-full flex flex-col gap-4 mt-7' 
               >
                 <label className='flex flex-col' >
@@ -157,6 +173,7 @@ export default function ProfileClinic(){
                 />
 
                 <button 
+                  onClick={ handleUpdate }
                   className='w-full rounded bg-darkPrimaryColor h-9 text-white font-semibold text-lg mt-5' 
                 >
                   Salvar
