@@ -84,7 +84,7 @@ export default function ProfileClinic(){
       </Head>
       <div className='lg:flex bg-secondaryColor dark:bg-darkSecondaryColor min-h-screen' >
         {dasktopSizeScreen ? 
-          <NavigationMenu linkNameOne='Consultas' linkNameTwo='Nova Consulta' linkNameTre='Perfil' /> 
+          <NavigationMenu linkNameOne='Agenda' linkNameTwo='Serviços' linkNameTre='Perfil' /> 
           : 
           <HeaderMobile handleOpenNav={ () => setOpenNav(true) } />
         }

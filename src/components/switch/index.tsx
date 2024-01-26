@@ -8,7 +8,7 @@ type SwitchProps = {
 
 export function Switch({ setStatus }: SwitchProps){
   const { '@dentalsupportclinic.token': token } = parseCookies();
-  const [isChecked, setIsChecked] = useState<boolean>();
+  const [isChecked, setIsChecked] = useState<boolean>(false);
 
   useEffect(() => {
     async function getDetailClinic(){
@@ -45,10 +45,10 @@ export function Switch({ setStatus }: SwitchProps){
           onChange={ handleCheckboxChange }
         />
 
-        <div className={ `w-10 h-5 rounded-3xl flex items-center relative cursor-pointer bg-darkSecondaryColor` } >
+        <div className={ `w-12 h-5 rounded-3xl flex items-center relative cursor-pointer bg-darkSecondaryColor` } >
           <button 
-            className='w-5 h-5 bg-gray-500 rounded-full transition-all absolute' 
-            style={{ transform: isChecked ? 'translateX(20px)' : 'translateX(-1px)' }}
+            className='w-4 h-4 bg-gray-500 rounded-full transition-all absolute' 
+            style={{ transform: isChecked ? 'translateX(30px)' : 'translateX(2px)' }}
           >
           </button>
         </div>

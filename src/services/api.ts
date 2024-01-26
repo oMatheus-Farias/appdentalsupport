@@ -14,19 +14,19 @@ export function setupAPIclient(ctx = undefined){
     },
   });
 
-  api.interceptors.response.use(response => {
-    return response;
-  }, (error: AxiosError) => {
-    if(error.response?.status === 401){
-      if(typeof window !== undefined){
-        signOut();
-      }else{
-        return Promise.reject(new AuthTokenError());
-      };
-    };
+  // api.interceptors.response.use(response => {
+  //   return response;
+  // }, (error: AxiosError) => {
+  //   if(error.response?.status === 401){
+  //     if(typeof window !== undefined){
+  //       signOut();
+  //     }else{
+  //       return Promise.reject(new AuthTokenError());
+  //     };
+  //   };
 
-    return Promise.reject(error);
-  });
+  //   return Promise.reject(error);
+  // });
 
   return api;
 };
