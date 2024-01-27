@@ -132,7 +132,7 @@ export default function Profile(){
   return(
     <div className={ `${isChecked ? '' : 'dark'}` } >
       <Head>
-        <title>DentalSupport - Minhas Consultas</title>
+        <title>DentalSupport - Perfil</title>
       </Head>
       <div className='lg:flex bg-secondaryColor dark:bg-darkSecondaryColor min-h-screen' >
         {dasktopSizeScreen ? 

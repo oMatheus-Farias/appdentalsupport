@@ -121,7 +121,7 @@ export default function NewQuery(){
   return(
     <div className={ `${isChecked ? '' : 'dark'}` } >
       <Head>
-        <title>DentalSupport - Minhas Consultas</title>
+        <title>DentalSupport - Marcar Consulta</title>
       </Head>
       <div className='lg:flex bg-secondaryColor dark:bg-darkSecondaryColor min-h-screen' >
         {dasktopSizeScreen ? 
