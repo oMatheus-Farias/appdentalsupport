@@ -19,7 +19,7 @@ export function UserServiceDetailsContainer({ nameClinic, address, contactClinic
   
 
   return(
-    <section className='max-w-[37.5em] p-2 rounded bg-boxColor lg:p-4' >
+    <section className='max-w-[37.5em] p-2 rounded bg-boxColor lg:p-4 hover:bg-gray-300 transition-all' >
       <Image
         src={ arrImages[randomNumber()] }
         alt='Banner DentalSupport'

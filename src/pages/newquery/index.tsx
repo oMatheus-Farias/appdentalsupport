@@ -255,7 +255,7 @@ export default function NewQuery(){
 
                 <button 
                   type='submit'
-                  className='w-full rounded bg-darkPrimaryColor h-9 text-white font-semibold text-lg mt-5' 
+                  className='w-full rounded bg-darkPrimaryColor h-9 text-white font-semibold text-lg mt-5 hover:bg-green-500 transition-all' 
                 >
                   Marcar Consulta
                 </button>

@@ -61,7 +61,7 @@ export function ModalServiceClinic({ closeModal, detail, listServices, setListSe
 
           <button 
             onClick={ handleCancelService }
-            className='w-full max-w-[14.3em] rounded bg-gray-700 h-9 text-white font-semibold mt-5' 
+            className='w-full max-w-[14.3em] rounded bg-gray-700 h-9 text-white font-semibold mt-5 hover:bg-red-500 transition-all' 
           >
             Cancelar Serviço
           </button>

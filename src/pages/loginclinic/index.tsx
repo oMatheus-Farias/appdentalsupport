@@ -104,7 +104,7 @@ export default function LoginClinic(){
                 />
 
                 <button 
-                  className='h-10 bg-darkPrimaryColor text-lg text-white font-semibold mt-4' 
+                  className='h-10 bg-darkPrimaryColor text-lg text-white font-semibold mt-4 hover:bg-darkSecondaryColor transition-all' 
                   type='submit'
                 >
                   Entrar

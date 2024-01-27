@@ -168,7 +168,7 @@ export default function Profile(){
 
                 <button 
                   onClick={ handleUpdateAvatar }
-                  className='bg-gray-700 rounded h-9 px-7 font-semibold text-white' 
+                  className='bg-gray-700 rounded h-9 px-7 font-semibold text-white hover:bg-black transition-all' 
                 >
                   Alterar Foto
                 </button>
@@ -221,7 +221,7 @@ export default function Profile(){
 
                   <button 
                     type='submit'
-                    className='w-full rounded bg-darkPrimaryColor h-9 text-white font-semibold text-lg mt-5' 
+                    className='w-full rounded bg-darkPrimaryColor h-9 text-white font-semibold text-lg mt-5 hover:bg-green-500 transition-all' 
                   >
                     Salvar
                   </button>
@@ -230,7 +230,7 @@ export default function Profile(){
               <div className='max-w-[25em] w-full' >
                 <button 
                   onClick={ logOut }
-                  className='w-full rounded bg-gray-700 h-9 text-white font-semibold text-lg mt-5' 
+                  className='w-full rounded bg-gray-700 h-9 text-white font-semibold text-lg mt-5 hover:bg-red-500 transition-all' 
                 >
                   Sair da conta
                 </button>

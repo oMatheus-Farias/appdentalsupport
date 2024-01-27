@@ -117,7 +117,7 @@ export default function DashboardUser(){
               <p>{ physicalPersonUser?.name }</p>
               <button 
                 onClick={ logout }
-                className='font-bold underline text-red-400' 
+                className='font-bold underline text-red-400 hover:text-red-600 transition-all' 
               >
                 Sair
               </button>

@@ -177,14 +177,14 @@ export default function ProfileClinic(){
 
                 <button 
                   onClick={ handleUpdate }
-                  className='w-full rounded bg-darkPrimaryColor h-9 text-white font-semibold text-lg mt-5' 
+                  className='w-full rounded bg-darkPrimaryColor h-9 text-white font-semibold text-lg mt-5 hover:bg-green-500 transition-all' 
                 >
                   Salvar
                 </button>
               
                 <button 
                   onClick={ logOut }
-                  className='w-full rounded bg-gray-700 h-9 text-white font-semibold text-lg mt-5' 
+                  className='w-full rounded bg-gray-700 h-9 text-white font-semibold text-lg mt-5 hover:bg-red-500 transition-all' 
                 >
                   Sair da conta
                 </button>
