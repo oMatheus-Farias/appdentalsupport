@@ -1,40 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Logo do projeto](https://raw.githubusercontent.com/oMatheus-Farias/appdentalsupport/main/public/images/mockup-DentalSupport.png)
 
-## Getting Started
+# DentalSupport
 
-First, run the development server:
+O Dental Support é uma plataforma digital dedicada aos serviços odontológicos, proporcionando uma abordagem abrangente tanto para profissionais de saúde bucal quanto para pacientes. Com uma interface intuitiva e funcionalidades específicas para ambos os públicos, a plataforma visa simplificar o agendamento de consultas, melhorar a gestão de clínicas odontológicas e oferecer uma experiência aprimorada aos usuários.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🔥 Funcionalidades Principais
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **API Segura com NodeJS:** Uma API robusta foi desenvolvida em NodeJS para gerenciar as requisições da aplicação, garantindo eficiência e segurança.
+- **Páginas de Login e Cadastro:** Duas telas de login e duas telas para cadastro, uma destinada a pessoas físicas (pacientes) e outra a pessoas jurídicas (profissionais/clinicas). Utilização de React Hook Form, resolvers e Zod para validação eficiente dos formulários.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Área do Paciente (Pessoa Física)
+  
+- **Tela de Consultas:** Exibição das consultas marcadas em cards detalhados. Modal com informações detalhadas e opção para cancelamento.
+- **Página de Marcar Consulta:** Formulário intuitivo para agendamento de novas consultas.
+- **Perfil do Paciente:** Atualização de foto, nome e contato. Botão para realizar logout da conta.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Área do Profissional (Pessoa Jurídica)
+  
+- **Tela de Agenda:** Visualização de todos os serviços marcados pelos pacientes. Modal com detalhes da consulta e informações do paciente. Opção para cancelamento de consultas.
+- **Perfil Profissional:** Edição de nome, localização e contato. Salvamento de alterações e opção para logout.
+  
+### ⚙️ Pré-requisitos
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- npm ou yarn
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 🔨 Guia de instalação
 
-## Learn More
+1. Clone o repositório: `git clone https://github.com/oMatheus-Farias/appdentalsupport.git`>
+2. Navegue até o diretório do projeto: `cd appdentalsupport`
+3. Instale as dependências: `npm install` (ou use o gerenciador de pacotes apropriado)
+4. Inicie o servidor: `npm run dev` (ou use o comando adequado)
+5. O aplicativo estará disponível no localhost que aparecera no seu painel ex: [http://localhost:3000](http://localhost:3000/)
 
-To learn more about Next.js, take a look at the following resources:
+### Desenvolvimento
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Banco de Dados:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Mapeamento do banco utilizando a ferramenta Whimsical.
+PostgreSQL como banco de dados e Prisma ORM para criação das tabelas.
 
-## Deploy on Vercel
+Protótipo de Design:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Desenvolvimento do protótipo no Figma para garantir a usabilidade e a estética.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+API e Testes:
+
+Implementação da API com Node.js.
+Testes de rotas realizados com o Insomnia.
+
+Front-End:
+
+Desenvolvido com Next.js, React.js, TypeScript, TailwindCSS e CSS.
+Utilização da Context API e React Hook Form para gerenciamento de estados e formulários.
+
+Controle de Versão:
+
+Git e GitHub para o controle eficiente das versões do projeto.
+
+Ferramentas Adicionais:
+
+Beekeeper Studio para visualização das tabelas do banco de dados.
+Insomnia para testes de rotas.
+
+O Dental Support é resultado de uma abordagem integrada, desde a concepção do banco de dados até o desenvolvimento do front-end, utilizando tecnologias modernas e eficientes para proporcionar uma solução completa e intuitiva no cenário odontológico.
+
+### 📦 Tecnologias usadas
+
+* ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+* ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+* ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+* ![Context-API](https://img.shields.io/badge/Context--Api-000000?style=for-the-badge&logo=react)
+* ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+* ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+* ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+* ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+
+
+### 📄 Licença
+
+Este projeto está sob a [Licença MIT](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt)
