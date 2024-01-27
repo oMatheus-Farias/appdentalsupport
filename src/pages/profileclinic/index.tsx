@@ -121,8 +121,7 @@ export default function ProfileClinic(){
                       name='address'
                       value={ address }
                       onChange={ (event) => setAddress(event.target.value) }
-                      disabled
-                      className='px-3 rounded bg-white h-9 cursor-not-allowed'
+                      className='px-3 rounded bg-white h-9'
                     />
                   </label>
                   <label className='flex flex-col' >
@@ -168,9 +167,13 @@ export default function ProfileClinic(){
               </form>
 
               <div className='max-w-[25em] w-full flex flex-col mt-4' >
-                <Switch
-                  setStatus={ setStateClinic }
-                />
+                <div className='flex items-center gap-3' >
+                  <Switch
+                    setStatus={ setStateClinic }
+                  />
+                  
+                  <span>{ stateClinic ? 'Cadastro ativado' : 'Cadastro desativado' }</span>
+                </div>
 
                 <button 
                   onClick={ handleUpdate }
